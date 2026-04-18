@@ -185,7 +185,7 @@ button {
   position: absolute;
   top: 100px;
   left: 180px;
-  width: 900px;
+  width: 980px;
   max-width: calc(100vw - 220px);
   min-height: 420px;
   background: rgba(15, 23, 42, 0.96);
@@ -420,7 +420,368 @@ button {
 }
 
 /* =========================
-   MINI JEU HACK STYLE
+   EXPLORATEUR DE DOCUMENTS
+========================= */
+.docs-explorer {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  margin: -18px;
+  min-height: 620px;
+  background: #0f172a;
+}
+
+.docs-sidebar {
+  background: rgba(15, 23, 42, 0.98);
+  border-right: 1px solid rgba(255,255,255,0.08);
+  padding: 18px 12px;
+}
+
+.docs-sidebar-title {
+  font-size: 13px;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+  padding: 0 8px;
+}
+
+.docs-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  color: #e2e8f0;
+  font-size: 14px;
+  margin-bottom: 4px;
+  background: transparent;
+}
+
+.docs-nav-item.active {
+  background: rgba(59,130,246,0.14);
+}
+
+.docs-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.docs-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  background: rgba(15, 23, 42, 0.88);
+}
+
+.docs-path {
+  font-size: 14px;
+  color: #cbd5e1;
+}
+
+.docs-toolbar-right {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  color: #94a3b8;
+}
+
+.docs-search {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.06);
+  color: white;
+  padding: 10px 12px;
+  border-radius: 10px;
+  width: 220px;
+  outline: none;
+}
+
+.docs-body {
+  padding: 22px;
+}
+
+.docs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 18px;
+}
+
+.docs-file {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px;
+  padding: 18px;
+  cursor: pointer;
+  transition: 0.18s ease;
+}
+
+.docs-file:hover {
+  background: rgba(255,255,255,0.08);
+  transform: translateY(-2px);
+}
+
+.docs-file-icon {
+  font-size: 44px;
+  margin-bottom: 12px;
+}
+
+.docs-file-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #f8fafc;
+  margin-bottom: 6px;
+}
+
+.docs-file-meta {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+/* =========================
+   FAUX GOOGLE SHEETS
+========================= */
+.sheet-app {
+  margin: -18px;
+  min-height: 620px;
+  background: #ffffff;
+  color: #111827;
+  display: flex;
+  flex-direction: column;
+}
+
+.sheet-topbar {
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  border-bottom: 1px solid #e5e7eb;
+  background: #f8fafc;
+}
+
+.sheet-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sheet-logo {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: #16a34a;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.sheet-title {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.sheet-subtitle {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.sheet-table-wrap {
+  padding: 18px;
+  overflow: auto;
+}
+
+.fake-sheet {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 880px;
+}
+
+.fake-sheet th,
+.fake-sheet td {
+  border: 1px solid #e5e7eb;
+  padding: 10px 12px;
+  text-align: left;
+}
+
+.fake-sheet th {
+  background: #f3f4f6;
+  font-weight: 700;
+}
+
+.fake-sheet tbody tr:nth-child(even) {
+  background: #fafafa;
+}
+
+/* =========================
+   FAUX CALENDRIER
+========================= */
+.calendar-app {
+  margin: -18px;
+  min-height: 620px;
+  background: #f8fafc;
+  color: #0f172a;
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar-topbar {
+  padding: 18px 22px;
+  border-bottom: 1px solid #e5e7eb;
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.calendar-month {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.calendar-sub {
+  color: #64748b;
+  font-size: 13px;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  padding: 18px;
+}
+
+.calendar-day-name {
+  background: transparent;
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 8px;
+  text-align: center;
+}
+
+.calendar-day {
+  min-height: 110px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.calendar-day.empty {
+  background: #f1f5f9;
+  border-style: dashed;
+}
+
+.calendar-date {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.calendar-note {
+  background: #dbeafe;
+  color: #1e3a8a;
+  border-radius: 10px;
+  padding: 8px;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.calendar-note.red {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.calendar-note.green {
+  background: #dcfce7;
+  color: #166534;
+}
+
+/* =========================
+   FAUX BLOC NOTES
+========================= */
+.notes-app {
+  margin: -18px;
+  min-height: 620px;
+  background: #f8fafc;
+  color: #0f172a;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+}
+
+.notes-tabs {
+  background: #ffffff;
+  border-right: 1px solid #e5e7eb;
+  padding: 14px;
+}
+
+.notes-tabs-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.notes-tab {
+  width: 100%;
+  text-align: left;
+  padding: 12px 14px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: 0.15s ease;
+  color: #0f172a;
+}
+
+.notes-tab.active {
+  background: #e0ecff;
+  border-color: #93c5fd;
+}
+
+.notes-editor {
+  background: #fffef9;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+}
+
+.notes-editor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 12px;
+}
+
+.notes-editor-title {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.notes-editor-meta {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.notes-paper {
+  white-space: pre-line;
+  line-height: 1.8;
+  font-size: 15px;
+  color: #1f2937;
+}
+
+/* =========================
+   MINI JEU HACK
 ========================= */
 .hack-screen {
   background: linear-gradient(180deg, #0a2f88 0%, #081930 22%, #020202 100%);
@@ -893,9 +1254,18 @@ button {
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 950px) {
+  .docs-explorer,
+  .notes-app,
   .messaging-app {
     grid-template-columns: 1fr;
+  }
+
+  .docs-sidebar,
+  .notes-tabs,
+  .messaging-sidebar {
+    border-right: none;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
   }
 
   .messaging-sidebar {
@@ -977,5 +1347,9 @@ button {
   .hack-number {
     font-size: 24px;
     min-width: 32px;
+  }
+
+  .calendar-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
