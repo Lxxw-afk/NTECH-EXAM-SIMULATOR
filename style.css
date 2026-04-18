@@ -1353,3 +1353,240 @@ button {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+/* =========================
+   MESSAGE POSITION / CARTE
+========================= */
+.location-card {
+  margin-top: 6px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.08);
+  cursor: pointer;
+  transition: 0.15s ease;
+}
+
+.location-card:hover {
+  background: rgba(255,255,255,0.14);
+  transform: translateY(-1px);
+}
+
+.location-title {
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.location-sub {
+  font-size: 12px;
+  opacity: 0.82;
+}
+
+.location-open {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #93c5fd;
+}
+
+.message-bubble.clickable {
+  cursor: pointer;
+}
+
+/* =========================
+   FAUSSE CARTE
+========================= */
+.map-app {
+  margin: -18px;
+  min-height: 620px;
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  background: #0f172a;
+}
+
+.map-sidebar {
+  background: rgba(15, 23, 42, 0.98);
+  border-right: 1px solid rgba(255,255,255,0.08);
+  padding: 20px;
+}
+
+.map-sidebar h3 {
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: #f8fafc;
+}
+
+.map-meta {
+  color: #cbd5e1;
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 18px;
+}
+
+.map-badge {
+  display: inline-block;
+  background: rgba(59,130,246,0.18);
+  border: 1px solid rgba(96,165,250,0.25);
+  color: #bfdbfe;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  margin-bottom: 16px;
+}
+
+.map-notes {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px;
+  padding: 14px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #e2e8f0;
+  margin-bottom: 18px;
+}
+
+.map-canvas-wrap {
+  padding: 20px;
+  background:
+    radial-gradient(circle at top left, rgba(37,99,235,0.08), transparent 20%),
+    #0b1220;
+}
+
+.map-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  color: #cbd5e1;
+}
+
+.map-toolbar-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.map-canvas {
+  position: relative;
+  width: 100%;
+  min-height: 520px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.08);
+  background:
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(135deg, #122033, #0a1422);
+  background-size: 48px 48px, 48px 48px, cover;
+}
+
+.map-road {
+  position: absolute;
+  background: rgba(226,232,240,0.18);
+  border-radius: 999px;
+}
+
+.map-road.horizontal {
+  height: 10px;
+}
+
+.map-road.vertical {
+  width: 10px;
+}
+
+.map-road.diagonal {
+  height: 10px;
+  transform: rotate(-24deg);
+  transform-origin: left center;
+}
+
+.map-zone {
+  position: absolute;
+  border: 1px dashed rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.02);
+  border-radius: 14px;
+  color: #94a3b8;
+  font-size: 12px;
+  padding: 8px;
+}
+
+.map-marker {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  text-align: center;
+}
+
+.map-pin {
+  width: 24px;
+  height: 24px;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  background: #ef4444;
+  margin: 0 auto;
+  box-shadow: 0 0 0 6px rgba(239,68,68,0.12);
+}
+
+.map-pin::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 7px;
+  left: 7px;
+}
+
+.map-marker-label {
+  margin-top: 10px;
+  background: rgba(15,23,42,0.94);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: white;
+  padding: 8px 10px;
+  border-radius: 10px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.map-route {
+  position: absolute;
+  height: 4px;
+  background: linear-gradient(90deg, #60a5fa, #22c55e);
+  transform-origin: left center;
+  border-radius: 999px;
+  box-shadow: 0 0 8px rgba(96,165,250,0.35);
+}
+
+.map-legend {
+  display: flex;
+  gap: 16px;
+  margin-top: 14px;
+  color: #cbd5e1;
+  font-size: 13px;
+  flex-wrap: wrap;
+}
+
+.map-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.map-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.map-dot.red { background: #ef4444; }
+.map-dot.blue { background: #60a5fa; }
+.map-dot.green { background: #22c55e; }
+
+@media (max-width: 950px) {
+  .map-app {
+    grid-template-columns: 1fr;
+  }
+
+  .map-sidebar {
+    border-right: none;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+}
