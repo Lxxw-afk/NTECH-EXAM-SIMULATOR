@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NTECH Exam Simulator</title>
+  <title>Poste informatique saisi</title>
+
   <style>
     * {
       box-sizing: border-box;
@@ -30,83 +31,81 @@
     #login-screen {
       width: 100%;
       height: 100%;
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
-      position: relative;
-      background: url('assets/login-bg.png') center/cover no-repeat;
+      background: url("assets/login-bg.png") center/cover no-repeat;
     }
 
     #login-screen::before {
-      content: '';
+      content: "";
       position: absolute;
       inset: 0;
-      background: rgba(4, 14, 35, 0.62);
-      backdrop-filter: blur(2px);
+      background: rgba(10, 20, 55, 0.35);
+      backdrop-filter: blur(1px);
     }
 
     .login-wrapper {
       position: relative;
       z-index: 2;
       width: 100%;
-      max-width: 640px;
+      max-width: 720px;
+      padding: 30px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
       text-align: center;
-      padding: 24px;
     }
 
     .login-title {
       font-size: 34px;
       font-weight: 700;
       letter-spacing: 1px;
-      margin-bottom: 34px;
       text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.96);
-      text-shadow: 0 4px 18px rgba(0,0,0,0.35);
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 34px;
+      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
     }
 
     .profile-img {
-      width: 150px;
-      height: 150px;
+      width: 160px;
+      height: 160px;
       border-radius: 50%;
       object-fit: cover;
-      margin-bottom: 18px;
-      border: 2px solid rgba(105, 164, 255, 0.9);
-      box-shadow: 0 0 26px rgba(59, 130, 246, 0.45);
+      margin-bottom: 22px;
     }
 
     .session-name {
-      font-size: 30px;
-      font-weight: 600;
+      font-size: 34px;
+      font-weight: 500;
       margin-bottom: 28px;
-      color: rgba(255,255,255,0.96);
-      text-shadow: 0 4px 16px rgba(0,0,0,0.3);
+      color: rgba(255, 255, 255, 0.96);
+      text-shadow: 0 4px 12px rgba(0,0,0,0.25);
     }
 
     .password-box {
       width: 100%;
-      max-width: 470px;
-      height: 60px;
+      max-width: 510px;
+      height: 58px;
       display: flex;
       align-items: center;
       gap: 14px;
       padding: 0 18px;
-      border-radius: 14px;
-      background: rgba(15, 24, 52, 0.78);
+      border-radius: 12px;
+      background: rgba(20, 28, 70, 0.78);
       border: 1px solid rgba(255,255,255,0.12);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
     }
 
     .lock-icon {
-      font-size: 26px;
+      font-size: 24px;
       opacity: 0.9;
+      flex-shrink: 0;
     }
 
     #password-input {
       width: 100%;
+      height: 100%;
       border: none;
       outline: none;
       background: transparent;
@@ -115,65 +114,58 @@
     }
 
     #password-input::placeholder {
-      color: rgba(255,255,255,0.6);
+      color: rgba(255,255,255,0.62);
     }
 
     .help-text {
       margin-top: 18px;
-      font-size: 18px;
-      color: rgba(255,255,255,0.82);
+      font-size: 16px;
+      color: rgba(255,255,255,0.7);
     }
 
     #login-button {
       width: 100%;
-      max-width: 470px;
-      height: 58px;
+      max-width: 510px;
+      height: 56px;
       margin-top: 22px;
       border: none;
-      border-radius: 14px;
-      cursor: pointer;
+      border-radius: 12px;
+      color: white;
       font-size: 18px;
       font-weight: 700;
-      color: white;
-      background: linear-gradient(90deg, #2f5df0, #3268ff);
-      box-shadow: 0 10px 24px rgba(28, 88, 255, 0.25);
+      cursor: pointer;
+      background: linear-gradient(90deg, #3561f2, #3770ff);
+      box-shadow: 0 8px 20px rgba(40, 90, 255, 0.2);
       transition: transform 0.15s ease, filter 0.15s ease;
     }
 
     #login-button:hover {
       transform: translateY(-1px);
-      filter: brightness(1.06);
+      filter: brightness(1.05);
     }
 
     #error-message {
-      min-height: 24px;
-      margin-top: 14px;
+      min-height: 26px;
+      margin-top: 12px;
       font-size: 15px;
-      color: #ff8e8e;
+      color: #ff9b9b;
     }
 
     .login-links {
-      margin-top: 32px;
-      font-size: 18px;
-      color: rgba(255,255,255,0.78);
+      margin-top: 120px;
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 14px;
       flex-wrap: wrap;
-      justify-content: center;
+      font-size: 16px;
+      color: rgba(255,255,255,0.58);
     }
 
+    .login-links a,
     .login-links span {
-      color: rgba(255,255,255,0.78);
-    }
-
-    .login-links a {
-      color: #7fb0ff;
+      color: rgba(255,255,255,0.58);
       text-decoration: none;
-    }
-
-    .login-links a:hover {
-      text-decoration: underline;
     }
 
     /* =========================
@@ -185,7 +177,7 @@
       position: relative;
       background:
         linear-gradient(rgba(15,23,42,0.2), rgba(15,23,42,0.2)),
-        url('assets/desktop-bg.png') center/cover no-repeat;
+        url("assets/desktop-bg.png") center/cover no-repeat;
     }
 
     .desktop-overlay {
@@ -375,13 +367,9 @@
       color: #cbd5e1;
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 768px) {
       .login-title {
         font-size: 26px;
-      }
-
-      .session-name {
-        font-size: 24px;
       }
 
       .profile-img {
@@ -389,14 +377,17 @@
         height: 120px;
       }
 
+      .session-name {
+        font-size: 26px;
+      }
+
       .password-box,
       #login-button {
         max-width: 90%;
       }
 
-      .login-links,
-      .help-text {
-        font-size: 16px;
+      .login-links {
+        margin-top: 70px;
       }
     }
   </style>
@@ -412,12 +403,17 @@
 
       <div class="password-box">
         <span class="lock-icon">🔒</span>
-        <input type="password" id="password-input" placeholder="Entrez le mot de passe" />
+        <input
+          type="password"
+          id="password-input"
+          placeholder="Entrez le mot de passe"
+          autocomplete="off"
+        />
       </div>
 
       <div class="help-text">J'ai oublié mon mot de passe</div>
 
-      <button id="login-button">Se connecter</button>
+      <button id="login-button" type="button">Se connecter</button>
       <div id="error-message"></div>
 
       <div class="login-links">
@@ -441,14 +437,17 @@
         <span class="emoji">📁</span>
         <span class="label">Documents</span>
       </div>
+
       <div class="desktop-icon" onclick="openWindow('messages')">
         <span class="emoji">💬</span>
         <span class="label">Messagerie</span>
       </div>
+
       <div class="desktop-icon" onclick="openWindow('browser')">
         <span class="emoji">🌐</span>
         <span class="label">Navigateur</span>
       </div>
+
       <div class="desktop-icon" onclick="openWindow('downloads')">
         <span class="emoji">📥</span>
         <span class="label">Téléchargements</span>
@@ -470,11 +469,11 @@
   </section>
 
   <script>
-    const COMPUTER_PASSWORD = 'ENTREPOT22';
+    const COMPUTER_PASSWORD = "ENTREPOT22";
 
     const data = {
       documents: {
-        title: 'Documents',
+        title: "Documents",
         content: `
           <p>Répertoire principal de l'utilisateur.</p>
           <div class="folder-grid">
@@ -495,7 +494,7 @@
         `
       },
       messages: {
-        title: 'Messagerie',
+        title: "Messagerie",
         content: `
           <p>Dernières conversations enregistrées sur le poste.</p>
           <div class="file-box">
@@ -506,7 +505,7 @@
         `
       },
       browser: {
-        title: 'Historique du navigateur',
+        title: "Historique du navigateur",
         content: `
           <div class="file-box">
 - prix kilo cocaïne
@@ -517,7 +516,7 @@
         `
       },
       downloads: {
-        title: 'Téléchargements',
+        title: "Téléchargements",
         content: `
           <div class="file-box">
 - facture_scan.pdf
@@ -546,29 +545,32 @@ Supprimer les traces après la remise.
       `
     };
 
-    const loginScreen = document.getElementById('login-screen');
-    const desktopScreen = document.getElementById('desktop-screen');
-    const passwordInput = document.getElementById('password-input');
-    const loginButton = document.getElementById('login-button');
-    const errorMessage = document.getElementById('error-message');
-    const appWindow = document.getElementById('app-window');
-    const windowTitle = document.getElementById('window-title');
-    const windowContent = document.getElementById('window-content');
+    const loginScreen = document.getElementById("login-screen");
+    const desktopScreen = document.getElementById("desktop-screen");
+    const passwordInput = document.getElementById("password-input");
+    const loginButton = document.getElementById("login-button");
+    const errorMessage = document.getElementById("error-message");
+    const appWindow = document.getElementById("app-window");
+    const windowTitle = document.getElementById("window-title");
+    const windowContent = document.getElementById("window-content");
 
-    loginButton.addEventListener('click', tryLogin);
-    passwordInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') tryLogin();
+    loginButton.addEventListener("click", tryLogin);
+
+    passwordInput.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        tryLogin();
+      }
     });
 
     function tryLogin() {
       const attempt = passwordInput.value.trim();
 
       if (attempt === COMPUTER_PASSWORD) {
-        loginScreen.classList.add('hidden');
-        desktopScreen.classList.remove('hidden');
-        errorMessage.textContent = '';
+        errorMessage.textContent = "";
+        loginScreen.classList.add("hidden");
+        desktopScreen.classList.remove("hidden");
       } else {
-        errorMessage.textContent = 'Mot de passe incorrect.';
+        errorMessage.textContent = "Mot de passe incorrect.";
       }
     }
 
@@ -578,16 +580,16 @@ Supprimer les traces après la remise.
 
       windowTitle.textContent = app.title;
       windowContent.innerHTML = app.content;
-      appWindow.classList.remove('hidden');
+      appWindow.classList.remove("hidden");
     }
 
     function closeWindow() {
-      appWindow.classList.add('hidden');
+      appWindow.classList.add("hidden");
     }
 
     function showFile(fileKey) {
       const content = files[fileKey];
-      const target = document.getElementById('inner-file-view');
+      const target = document.getElementById("inner-file-view");
       if (!target || !content) return;
 
       target.innerHTML = `<div class="file-box">${content}</div>`;
@@ -595,14 +597,14 @@ Supprimer les traces après la remise.
 
     function updateClock() {
       const now = new Date();
-      const formatted = now.toLocaleString('fr-FR', {
-        hour: '2-digit',
-        minute: '2-digit',
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric'
+      const formatted = now.toLocaleString("fr-FR", {
+        hour: "2-digit",
+        minute: "2-digit",
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric"
       });
-      document.getElementById('clock').textContent = formatted;
+      document.getElementById("clock").textContent = formatted;
     }
 
     updateClock();
