@@ -1,1 +1,6 @@
-
+{
+  "sms": [
+    { "from": "Fournisseur", "text": "rdv 22h entrepôt" },
+    { "from": "Fournisseur", "text": "j’ai la marchandise" }
+  ]
+}
