@@ -1,25 +1,77 @@
 const COMPUTER_PASSWORD = "ENTREPOT22";
 
+const notesData = {
+  repaires: {
+    title: "Repaires",
+    date: "Dernière modification : 14/04/2026 - 22:12",
+    content: `- Entrepôt principal : zone industrielle de Paleto
+- Garage secondaire : hangar bleu près de l'autoroute
+- Dépôt temporaire : container 14 au port
+- Toujours changer de véhicule avant les remises importantes`
+  },
+  consignes: {
+    title: "Consignes",
+    date: "Dernière modification : 16/04/2026 - 18:41",
+    content: `- Ne jamais venir avec le téléphone perso
+- Supprimer les échanges après validation
+- Vérifier les plaques autour de l'entrepôt
+- Si présence inhabituelle : annuler la remise`
+  },
+  paiements: {
+    title: "Paiements",
+    date: "Dernière modification : 17/04/2026 - 23:03",
+    content: `- Client A : acompte reçu
+- Client B : reste 4 000€
+- Fournisseur : règlement après livraison complète
+- Prévoir liquide uniquement pour les gros montants`
+  }
+};
+
 const data = {
   documents: {
     title: "Documents",
     content: `
-      <p>Répertoire principal de l'utilisateur.</p>
-      <div class="folder-grid">
-        <div class="folder-item" onclick="showFile('clients')">
-          <span class="emoji">📄</span>
-          <span class="name">clients.txt</span>
+      <div class="docs-explorer">
+        <div class="docs-sidebar">
+          <div class="docs-sidebar-title">Accès rapide</div>
+          <div class="docs-nav-item active">📁 Documents</div>
+          <div class="docs-nav-item">⭐ Récents</div>
+          <div class="docs-nav-item">🖥️ Bureau</div>
+          <div class="docs-nav-item">📥 Téléchargements</div>
+          <div class="docs-nav-item">💾 Support externe</div>
         </div>
-        <div class="folder-item" onclick="showFile('planning')">
-          <span class="emoji">📄</span>
-          <span class="name">planning.txt</span>
-        </div>
-        <div class="folder-item" onclick="showFile('notes')">
-          <span class="emoji">📄</span>
-          <span class="name">notes_perso.txt</span>
+
+        <div class="docs-main">
+          <div class="docs-toolbar">
+            <div class="docs-path">Ce PC > Utilisateur > Lucas.SARCE > Documents</div>
+            <div class="docs-toolbar-right">
+              <input class="docs-search" type="text" placeholder="Rechercher dans Documents" />
+            </div>
+          </div>
+
+          <div class="docs-body">
+            <div class="docs-grid">
+              <div class="docs-file" onclick="openDocumentApp('clients')">
+                <div class="docs-file-icon">📄</div>
+                <div class="docs-file-name">clients.txt</div>
+                <div class="docs-file-meta">Document texte • modifié récemment</div>
+              </div>
+
+              <div class="docs-file" onclick="openDocumentApp('planning')">
+                <div class="docs-file-icon">🗓️</div>
+                <div class="docs-file-name">planning.txt</div>
+                <div class="docs-file-meta">Planning mensuel • avril</div>
+              </div>
+
+              <div class="docs-file" onclick="openDocumentApp('notes')">
+                <div class="docs-file-icon">📝</div>
+                <div class="docs-file-name">notes_perso.txt</div>
+                <div class="docs-file-meta">Bloc-notes • plusieurs onglets</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div id="inner-file-view"></div>
     `
   },
   messages: {
@@ -189,24 +241,6 @@ const data = {
   }
 };
 
-const files = {
-  clients: `
-Nom : Client A — Montant : 5 000€
-Nom : Client B — Montant : 12 000€
-Nom : Client C — Montant : 3 500€
-  `,
-  planning: `
-Lundi : repérage
-Mardi : livraison 22h
-Mercredi : encaissement
-  `,
-  notes: `
-Penser à changer de numéro.
-Ne pas oublier le rendez-vous à l'entrepôt.
-Supprimer les traces après la remise.
-  `
-};
-
 const loginScreen = document.getElementById("login-screen");
 const desktopScreen = document.getElementById("desktop-screen");
 const passwordInput = document.getElementById("password-input");
@@ -269,14 +303,6 @@ function closeWindow() {
   stopHackGame();
 }
 
-function showFile(fileKey) {
-  const content = files[fileKey];
-  const target = document.getElementById("inner-file-view");
-  if (!target || !content) return;
-
-  target.innerHTML = `<div class="file-box">${content}</div>`;
-}
-
 function updateClock() {
   const now = new Date();
   const time = now.toLocaleTimeString("fr-FR", {
@@ -285,6 +311,184 @@ function updateClock() {
   });
   const date = now.toLocaleDateString("fr-FR");
   document.getElementById("clock").innerHTML = `${time}<br>${date}`;
+}
+
+function openDocumentApp(type) {
+  stopHackGame();
+
+  if (type === "clients") {
+    windowTitle.textContent = "clients.txt";
+    windowContent.innerHTML = `
+      <div class="sheet-app">
+        <div class="sheet-topbar">
+          <div class="sheet-title-wrap">
+            <div class="sheet-logo">S</div>
+            <div>
+              <div class="sheet-title">Clients - Inventaire & ventes</div>
+              <div class="sheet-subtitle">Fichier synchronisé localement</div>
+            </div>
+          </div>
+          <button class="status-btn" onclick="openWindow('documents')">Retour aux documents</button>
+        </div>
+
+        <div class="sheet-table-wrap">
+          <table class="fake-sheet">
+            <thead>
+              <tr>
+                <th>Client</th>
+                <th>Produit</th>
+                <th>Quantité</th>
+                <th>Montant</th>
+                <th>Mode</th>
+                <th>Statut</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Client A</td><td>Marchandise blanche</td><td>2 kg</td><td>5 000€</td><td>Liquide</td><td>Payé</td><td>12/04</td></tr>
+              <tr><td>Client B</td><td>Résine</td><td>5 paquets</td><td>12 000€</td><td>Liquide</td><td>Partiel</td><td>13/04</td></tr>
+              <tr><td>Client C</td><td>Métaux</td><td>3 caisses</td><td>3 500€</td><td>Liquide</td><td>Payé</td><td>14/04</td></tr>
+              <tr><td>Client D</td><td>Armes démontées</td><td>2 lots</td><td>18 000€</td><td>Crypto</td><td>En attente</td><td>14/04</td></tr>
+              <tr><td>Client E</td><td>Marchandise blanche</td><td>1 kg</td><td>2 700€</td><td>Liquide</td><td>Payé</td><td>15/04</td></tr>
+              <tr><td>Client F</td><td>Plaques vierges</td><td>10 unités</td><td>1 200€</td><td>Liquide</td><td>Payé</td><td>15/04</td></tr>
+              <tr><td>Client G</td><td>Composants</td><td>4 lots</td><td>7 600€</td><td>Crypto</td><td>En attente</td><td>16/04</td></tr>
+              <tr><td>Client H</td><td>Munitions</td><td>8 boîtes</td><td>4 900€</td><td>Liquide</td><td>Payé</td><td>16/04</td></tr>
+              <tr><td>Client I</td><td>Résine</td><td>9 paquets</td><td>8 100€</td><td>Liquide</td><td>Payé</td><td>17/04</td></tr>
+              <tr><td>Client J</td><td>Équipement</td><td>1 lot</td><td>6 400€</td><td>Crypto</td><td>En attente</td><td>17/04</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `;
+    appWindow.classList.remove("hidden");
+    return;
+  }
+
+  if (type === "planning") {
+    windowTitle.textContent = "planning.txt";
+    windowContent.innerHTML = `
+      <div class="calendar-app">
+        <div class="calendar-topbar">
+          <div>
+            <div class="calendar-month">Avril 2026</div>
+            <div class="calendar-sub">Planning d'activité - usage interne</div>
+          </div>
+          <button class="status-btn" onclick="openWindow('documents')">Retour aux documents</button>
+        </div>
+
+        <div class="calendar-grid">
+          <div class="calendar-day-name">Lun</div>
+          <div class="calendar-day-name">Mar</div>
+          <div class="calendar-day-name">Mer</div>
+          <div class="calendar-day-name">Jeu</div>
+          <div class="calendar-day-name">Ven</div>
+          <div class="calendar-day-name">Sam</div>
+          <div class="calendar-day-name">Dim</div>
+
+          <div class="calendar-day empty"></div>
+          <div class="calendar-day empty"></div>
+          <div class="calendar-day"><div class="calendar-date">1</div></div>
+          <div class="calendar-day"><div class="calendar-date">2</div></div>
+          <div class="calendar-day"><div class="calendar-date">3</div></div>
+          <div class="calendar-day"><div class="calendar-date">4</div></div>
+          <div class="calendar-day"><div class="calendar-date">5</div></div>
+
+          <div class="calendar-day"><div class="calendar-date">6</div></div>
+          <div class="calendar-day"><div class="calendar-date">7</div></div>
+          <div class="calendar-day">
+            <div class="calendar-date">8</div>
+            <div class="calendar-note">Repérage zone industrielle</div>
+          </div>
+          <div class="calendar-day"><div class="calendar-date">9</div></div>
+          <div class="calendar-day">
+            <div class="calendar-date">10</div>
+            <div class="calendar-note green">Réception marchandise</div>
+          </div>
+          <div class="calendar-day"><div class="calendar-date">11</div></div>
+          <div class="calendar-day"><div class="calendar-date">12</div></div>
+
+          <div class="calendar-day"><div class="calendar-date">13</div></div>
+          <div class="calendar-day">
+            <div class="calendar-date">14</div>
+            <div class="calendar-note">Contact Client B</div>
+          </div>
+          <div class="calendar-day"><div class="calendar-date">15</div></div>
+          <div class="calendar-day">
+            <div class="calendar-date">16</div>
+            <div class="calendar-note red">Déplacement discret - port</div>
+          </div>
+          <div class="calendar-day"><div class="calendar-date">17</div></div>
+          <div class="calendar-day"><div class="calendar-date">18</div></div>
+          <div class="calendar-day"><div class="calendar-date">19</div></div>
+
+          <div class="calendar-day">
+            <div class="calendar-date">20</div>
+            <div class="calendar-note green">Remise entrepôt 22h</div>
+          </div>
+          <div class="calendar-day"><div class="calendar-date">21</div></div>
+          <div class="calendar-day"><div class="calendar-date">22</div></div>
+          <div class="calendar-day"><div class="calendar-date">23</div></div>
+          <div class="calendar-day">
+            <div class="calendar-date">24</div>
+            <div class="calendar-note">Encaissement / tri</div>
+          </div>
+          <div class="calendar-day"><div class="calendar-date">25</div></div>
+          <div class="calendar-day"><div class="calendar-date">26</div></div>
+
+          <div class="calendar-day"><div class="calendar-date">27</div></div>
+          <div class="calendar-day"><div class="calendar-date">28</div></div>
+          <div class="calendar-day"><div class="calendar-date">29</div></div>
+          <div class="calendar-day"><div class="calendar-date">30</div></div>
+        </div>
+      </div>
+    `;
+    appWindow.classList.remove("hidden");
+    return;
+  }
+
+  if (type === "notes") {
+    windowTitle.textContent = "notes_perso.txt";
+    windowContent.innerHTML = renderNotesApp("repaires");
+    appWindow.classList.remove("hidden");
+  }
+}
+
+function renderNotesApp(activeKey) {
+  const tabs = Object.keys(notesData).map((key) => {
+    const note = notesData[key];
+    return `
+      <button class="notes-tab ${key === activeKey ? "active" : ""}" onclick="switchNoteTab('${key}')">
+        ${note.title}
+      </button>
+    `;
+  }).join("");
+
+  const active = notesData[activeKey];
+
+  return `
+    <div class="notes-app">
+      <div class="notes-tabs">
+        <div class="notes-tabs-title">Bloc-notes</div>
+        ${tabs}
+        <button class="status-btn" style="margin-top:8px;width:100%;" onclick="openWindow('documents')">Retour aux documents</button>
+      </div>
+
+      <div class="notes-editor">
+        <div class="notes-editor-header">
+          <div>
+            <div class="notes-editor-title">${active.title}</div>
+            <div class="notes-editor-meta">${active.date}</div>
+          </div>
+        </div>
+
+        <div class="notes-paper">${active.content}</div>
+      </div>
+    </div>
+  `;
+}
+
+function switchNoteTab(key) {
+  windowContent.innerHTML = renderNotesApp(key);
 }
 
 function openMessagingAccess() {
@@ -430,13 +634,11 @@ function startHackNumbersGame() {
 
   grid.innerHTML = "";
 
-  numbers.forEach((num, index) => {
+  numbers.forEach((num) => {
     const cell = document.createElement("div");
     cell.className = "hack-number";
     cell.textContent = num;
-    cell.dataset.index = index;
     cell.dataset.value = num;
-
     cell.addEventListener("click", () => handleHackNumberClick(cell, num));
     grid.appendChild(cell);
   });
