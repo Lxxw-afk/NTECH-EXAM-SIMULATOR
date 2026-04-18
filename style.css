@@ -22,3 +22,6 @@ body {
 #viewer {
   margin-top: 30px;
 }
+.topbar {
+  display: none;
+}
