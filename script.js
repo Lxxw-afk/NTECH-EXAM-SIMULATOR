@@ -358,18 +358,18 @@ function openDocumentApp(type) {
                 <th>Date</th>
               </tr>
             </thead>
-            <tbody>
-              <tr><td>Client A</td><td>Marchandise blanche</td><td>2 kg</td><td>5 000€</td><td>Liquide</td><td>Payé</td><td>12/04</td></tr>
-              <tr><td>Client B</td><td>Résine</td><td>5 paquets</td><td>12 000€</td><td>Liquide</td><td>Partiel</td><td>13/04</td></tr>
-              <tr><td>Client C</td><td>Métaux</td><td>3 caisses</td><td>3 500€</td><td>Liquide</td><td>Payé</td><td>14/04</td></tr>
-              <tr><td>Client D</td><td>Armes démontées</td><td>2 lots</td><td>18 000€</td><td>Crypto</td><td>En attente</td><td>14/04</td></tr>
-              <tr><td>Client E</td><td>Marchandise blanche</td><td>1 kg</td><td>2 700€</td><td>Liquide</td><td>Payé</td><td>15/04</td></tr>
-              <tr><td>Client F</td><td>Plaques vierges</td><td>10 unités</td><td>1 200€</td><td>Liquide</td><td>Payé</td><td>15/04</td></tr>
-              <tr><td>Client G</td><td>Composants</td><td>4 lots</td><td>7 600€</td><td>Crypto</td><td>En attente</td><td>16/04</td></tr>
-              <tr><td>Client H</td><td>Munitions</td><td>8 boîtes</td><td>4 900€</td><td>Liquide</td><td>Payé</td><td>16/04</td></tr>
-              <tr><td>Client I</td><td>Résine</td><td>9 paquets</td><td>8 100€</td><td>Liquide</td><td>Payé</td><td>17/04</td></tr>
-              <tr><td>Client J</td><td>Équipement</td><td>1 lot</td><td>6 400€</td><td>Crypto</td><td>En attente</td><td>17/04</td></tr>
-            </tbody>
+           <tbody>
+  <tr><td>Lucas Morel</td><td>Marchandise blanche</td><td>2 kg</td><td>5 000€</td><td>Liquide</td><td>Payé</td><td>12/04</td></tr>
+  <tr><td>Kevin Dubois</td><td>Résine</td><td>5 paquets</td><td>12 000€</td><td>Liquide</td><td>Partiel</td><td>13/04</td></tr>
+  <tr><td>Mathis Leroy</td><td>Métaux</td><td>3 caisses</td><td>3 500€</td><td>Liquide</td><td>Payé</td><td>14/04</td></tr>
+  <tr><td>Enzo Garcia</td><td>Armes démontées</td><td>2 lots</td><td>18 000€</td><td>Crypto</td><td>En attente</td><td>14/04</td></tr>
+  <tr><td>Thomas Bernard</td><td>Marchandise blanche</td><td>1 kg</td><td>2 700€</td><td>Liquide</td><td>Payé</td><td>15/04</td></tr>
+  <tr><td>Hugo Petit</td><td>Plaques vierges</td><td>10 unités</td><td>1 200€</td><td>Liquide</td><td>Payé</td><td>15/04</td></tr>
+  <tr><td>Antoine Robert</td><td>Composants</td><td>4 lots</td><td>7 600€</td><td>Crypto</td><td>En attente</td><td>16/04</td></tr>
+  <tr><td>Nathan Richard</td><td>Munitions</td><td>8 boîtes</td><td>4 900€</td><td>Liquide</td><td>Payé</td><td>16/04</td></tr>
+  <tr><td>Maxime Durand</td><td>Résine</td><td>9 paquets</td><td>8 100€</td><td>Liquide</td><td>Payé</td><td>17/04</td></tr>
+  <tr><td>Alexandre Michel</td><td>Équipement</td><td>1 lot</td><td>6 400€</td><td>Crypto</td><td>En attente</td><td>17/04</td></tr>
+</tbody>
           </table>
         </div>
       </div>
