@@ -1,1 +1,10 @@
-
+{
+  "clients": [
+    { "name": "Client A", "amount": 5000 },
+    { "name": "Client B", "amount": 12000 }
+  ],
+  "history": [
+    "prix kilo cocaïne",
+    "entrepôt abandonné localisation"
+  ]
+}
