@@ -31,141 +31,78 @@
     #login-screen {
       width: 100%;
       height: 100%;
-      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: url("assets/login-bg.png") center/cover no-repeat;
+      background:
+        linear-gradient(135deg, rgba(11,18,32,0.92), rgba(20,30,48,0.92)),
+        url("assets/login-bg.png") center/cover no-repeat;
     }
 
-    #login-screen::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: rgba(10, 20, 55, 0.35);
-      backdrop-filter: blur(1px);
-    }
-
-    .login-wrapper {
-      position: relative;
-      z-index: 2;
-      width: 100%;
-      max-width: 720px;
-      padding: 30px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    .login-box {
+      width: 420px;
+      padding: 32px;
+      border-radius: 18px;
+      background: rgba(15, 23, 42, 0.88);
+      border: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
       text-align: center;
     }
 
-    .login-title {
-      font-size: 34px;
-      font-weight: 700;
+    .login-box h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
       letter-spacing: 1px;
       text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.9);
-      margin-bottom: 34px;
-      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
     }
 
-    .profile-img {
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 22px;
+    .login-box p {
+      color: #cbd5e1;
+      font-size: 14px;
+      margin-bottom: 24px;
+      line-height: 1.5;
     }
 
-    .session-name {
-      font-size: 34px;
-      font-weight: 500;
-      margin-bottom: 28px;
-      color: rgba(255, 255, 255, 0.96);
-      text-shadow: 0 4px 12px rgba(0,0,0,0.25);
-    }
-
-    .password-box {
+    .login-box input {
       width: 100%;
-      max-width: 510px;
-      height: 58px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 0 18px;
-      border-radius: 12px;
-      background: rgba(20, 28, 70, 0.78);
-      border: 1px solid rgba(255,255,255,0.12);
-    }
-
-    .lock-icon {
-      font-size: 24px;
-      opacity: 0.9;
-      flex-shrink: 0;
-    }
-
-    #password-input {
-      width: 100%;
-      height: 100%;
-      border: none;
+      padding: 14px 16px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.05);
+      color: white;
+      font-size: 15px;
       outline: none;
-      background: transparent;
-      color: white;
-      font-size: 18px;
+      margin-bottom: 14px;
     }
 
-    #password-input::placeholder {
-      color: rgba(255,255,255,0.62);
+    .login-box input::placeholder {
+      color: rgba(255,255,255,0.45);
     }
 
-    .help-text {
-      margin-top: 18px;
-      font-size: 16px;
-      color: rgba(255,255,255,0.7);
-    }
-
-    #login-button {
+    .login-box button {
       width: 100%;
-      max-width: 510px;
-      height: 56px;
-      margin-top: 22px;
+      padding: 14px;
       border: none;
-      border-radius: 12px;
+      border-radius: 10px;
+      background: #2563eb;
       color: white;
-      font-size: 18px;
-      font-weight: 700;
+      font-size: 15px;
+      font-weight: bold;
       cursor: pointer;
-      background: linear-gradient(90deg, #3561f2, #3770ff);
-      box-shadow: 0 8px 20px rgba(40, 90, 255, 0.2);
-      transition: transform 0.15s ease, filter 0.15s ease;
+      transition: 0.2s ease;
     }
 
-    #login-button:hover {
+    .login-box button:hover {
       transform: translateY(-1px);
-      filter: brightness(1.05);
+      background: #1d4ed8;
     }
 
     #error-message {
-      min-height: 26px;
+      min-height: 20px;
       margin-top: 12px;
-      font-size: 15px;
-      color: #ff9b9b;
-    }
-
-    .login-links {
-      margin-top: 120px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      flex-wrap: wrap;
-      font-size: 16px;
-      color: rgba(255,255,255,0.58);
-    }
-
-    .login-links a,
-    .login-links span {
-      color: rgba(255,255,255,0.58);
-      text-decoration: none;
+      color: #f87171;
+      font-size: 14px;
     }
 
     /* =========================
@@ -175,15 +112,14 @@
       width: 100%;
       height: 100%;
       position: relative;
-      background:
-        linear-gradient(rgba(15,23,42,0.2), rgba(15,23,42,0.2)),
-        url("assets/desktop-bg.png") center/cover no-repeat;
+      background: url("assets/desktop-bg.png") center/cover no-repeat;
     }
 
     .desktop-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to bottom, rgba(7,10,20,0.08), rgba(7,10,20,0.28));
+      background: rgba(0, 0, 0, 0.08);
+      pointer-events: none;
     }
 
     .topbar {
@@ -192,13 +128,13 @@
       left: 0;
       right: 0;
       height: 42px;
-      background: rgba(10, 15, 25, 0.75);
+      background: rgba(10, 15, 25, 0.55);
       border-bottom: 1px solid rgba(255,255,255,0.08);
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0 16px;
-      backdrop-filter: blur(8px);
+      backdrop-filter: blur(6px);
       z-index: 2;
     }
 
@@ -342,14 +278,14 @@
       right: 0;
       bottom: 0;
       height: 54px;
-      background: rgba(10, 15, 25, 0.82);
+      background: rgba(10, 15, 25, 0.55);
       border-top: 1px solid rgba(255,255,255,0.08);
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0 16px;
       z-index: 3;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(8px);
     }
 
     .start-btn {
@@ -368,59 +304,36 @@
     }
 
     @media (max-width: 768px) {
-      .login-title {
-        font-size: 26px;
+      .login-box {
+        width: 90%;
       }
 
-      .profile-img {
-        width: 120px;
-        height: 120px;
-      }
-
-      .session-name {
-        font-size: 26px;
-      }
-
-      .password-box,
-      #login-button {
-        max-width: 90%;
-      }
-
-      .login-links {
-        margin-top: 70px;
+      .window {
+        left: 20px;
+        top: 90px;
+        width: calc(100vw - 40px);
       }
     }
   </style>
 </head>
 <body>
   <section id="login-screen">
-    <div class="login-wrapper">
-      <h1 class="login-title">POSTE INFORMATIQUE SAISI</h1>
+    <div class="login-box">
+      <h1>POSTE INFORMATIQUE SAISI</h1>
+      <p>
+        Veuillez saisir le mot de passe communiqué dans le dossier d'enquête
+        afin d'accéder à la session utilisateur.
+      </p>
 
-      <img src="assets/profile.png" alt="Photo de profil Ethan.morel" class="profile-img" />
-
-      <div class="session-name">Ethan.morel</div>
-
-      <div class="password-box">
-        <span class="lock-icon">🔒</span>
-        <input
-          type="password"
-          id="password-input"
-          placeholder="Entrez le mot de passe"
-          autocomplete="off"
-        />
-      </div>
-
-      <div class="help-text">J'ai oublié mon mot de passe</div>
+      <input
+        type="password"
+        id="password-input"
+        placeholder="Mot de passe"
+        autocomplete="off"
+      />
 
       <button id="login-button" type="button">Se connecter</button>
       <div id="error-message"></div>
-
-      <div class="login-links">
-        <span>J'ai oublié mon mot de passe</span>
-        <span>|</span>
-        <a href="#">Options de connexion</a>
-      </div>
     </div>
   </section>
 
@@ -556,7 +469,7 @@ Supprimer les traces après la remise.
 
     loginButton.addEventListener("click", tryLogin);
 
-    passwordInput.addEventListener("keydown", function (event) {
+    passwordInput.addEventListener("keydown", function(event) {
       if (event.key === "Enter") {
         tryLogin();
       }
