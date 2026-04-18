@@ -1,147 +1,981 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 body {
-  background: #0d1117;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #0b1220;
   color: white;
-  font-family: Arial;
-  text-align: center;
 }
 
-#desktop {
+.hidden {
+  display: none !important;
+}
+
+button {
+  font: inherit;
+}
+
+/* =========================
+   ÉCRAN DE CONNEXION
+========================= */
+#login-screen {
+  width: 100%;
+  height: 100%;
   display: flex;
+  align-items: center;
   justify-content: center;
-  gap: 50px;
-  margin-top: 50px;
+  background:
+    linear-gradient(135deg, rgba(11,18,32,0.55), rgba(20,30,48,0.45)),
+    url("assets/login-screen.jpg") center/cover no-repeat;
 }
 
-.icon {
-  cursor: pointer;
-  padding: 20px;
-  background: #161b22;
+.login-box {
+  width: 100%;
+  max-width: 520px;
+  padding: 32px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.session-name {
+  font-size: 34px;
+  font-weight: 500;
+  color: #ffffff;
+  margin-bottom: 28px;
+  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+}
+
+.password-row {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
   border-radius: 10px;
+  background: rgba(7, 18, 58, 0.72);
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+  margin-bottom: 18px;
 }
 
-#viewer {
-  margin-top: 30px;
+.lock-icon {
+  font-size: 22px;
+  line-height: 1;
+  opacity: 0.9;
+  flex-shrink: 0;
 }
-.topbar {
-  display: none;
+
+.password-row input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: white;
+  font-size: 16px;
+  outline: none;
 }
-.hack-modal {
+
+.password-row input::placeholder {
+  color: rgba(255,255,255,0.62);
+}
+
+.login-box button {
+  width: 100%;
+  max-width: 420px;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #2f5df0, #3a6bff);
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s ease;
+  box-shadow: 0 10px 28px rgba(32, 84, 255, 0.28);
+}
+
+.login-box button:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+}
+
+.login-links {
+  margin-top: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  color: rgba(255,255,255,0.72);
+  font-size: 14px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+
+.login-links a {
+  color: rgba(255,255,255,0.78);
+  text-decoration: none;
+}
+
+.login-links a:hover {
+  text-decoration: underline;
+}
+
+#error-message {
+  min-height: 20px;
+  margin-top: 12px;
+  color: #f87171;
+  font-size: 14px;
+}
+
+/* =========================
+   BUREAU
+========================= */
+#desktop-screen {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: url("assets/desktop-bg.png") center/cover no-repeat;
+}
+
+.desktop-overlay {
   position: absolute;
   inset: 0;
-  z-index: 20;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(2, 6, 23, 0.72);
-  backdrop-filter: blur(6px);
+  background: rgba(0, 0, 0, 0.08);
+  pointer-events: none;
 }
 
-.hack-box {
-  width: 100%;
-  max-width: 720px;
-  padding: 26px;
-  border-radius: 18px;
+.desktop-icons {
+  position: absolute;
+  top: 28px;
+  left: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  z-index: 2;
+}
+
+.desktop-icon {
+  width: 92px;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.desktop-icon .emoji {
+  font-size: 38px;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.desktop-icon .label {
+  font-size: 13px;
+  line-height: 1.3;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.55);
+}
+
+.window {
+  position: absolute;
+  top: 100px;
+  left: 180px;
+  width: 900px;
+  max-width: calc(100vw - 220px);
+  min-height: 420px;
   background: rgba(15, 23, 42, 0.96);
   border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  overflow: hidden;
   box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+  z-index: 5;
 }
 
-.hack-title {
-  font-size: 24px;
-  font-weight: 700;
-  color: #f8fafc;
-  margin-bottom: 8px;
-  letter-spacing: 0.5px;
-}
-
-.hack-subtitle {
-  font-size: 14px;
-  color: #cbd5e1;
-  margin-bottom: 22px;
-  line-height: 1.5;
-}
-
-.hack-row {
+.window-header {
+  height: 46px;
+  background: rgba(30, 41, 59, 0.95);
   display: flex;
   align-items: center;
-  gap: 14px;
+  justify-content: space-between;
+  padding: 0 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.window-header h2 {
+  font-size: 15px;
+  color: #f8fafc;
+  font-weight: 600;
+}
+
+.close-btn {
+  border: none;
+  background: #ef4444;
+  color: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.window-content {
+  padding: 18px;
+  color: #e2e8f0;
+}
+
+.folder-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.folder-item {
+  padding: 16px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.folder-item:hover {
+  background: rgba(255,255,255,0.08);
+  transform: translateY(-1px);
+}
+
+.folder-item span {
+  display: block;
+}
+
+.folder-item .emoji {
+  font-size: 34px;
+  margin-bottom: 8px;
+}
+
+.folder-item .name {
+  font-size: 14px;
+}
+
+.file-box {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 14px;
+  white-space: pre-line;
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.status-box {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 18px;
+  margin-top: 12px;
+}
+
+.status-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #f8fafc;
+}
+
+.status-text {
+  color: #cbd5e1;
+  line-height: 1.6;
   margin-bottom: 16px;
 }
 
-.hack-track {
-  position: relative;
-  flex: 1;
-  height: 16px;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.08);
-  overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.06);
-}
-
-.hack-zone {
-  position: absolute;
-  left: 42%;
-  width: 16%;
-  top: 0;
-  bottom: 0;
-  background: rgba(34, 197, 94, 0.85);
-}
-
-.hack-marker {
-  position: absolute;
-  top: -4px;
-  width: 10px;
-  height: 22px;
-  border-radius: 4px;
-  background: #60a5fa;
-  box-shadow: 0 0 12px rgba(96,165,250,0.45);
-}
-
-.hack-lock-btn {
-  min-width: 110px;
-  padding: 10px 12px;
+.status-btn {
+  padding: 12px 16px;
   border: none;
   border-radius: 10px;
-  background: #1d4ed8;
+  background: #2563eb;
   color: white;
   font-weight: 600;
   cursor: pointer;
 }
 
-.hack-lock-btn:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-}
-
-.hack-message {
-  min-height: 24px;
-  margin-top: 10px;
-  margin-bottom: 18px;
+.usb-notice {
+  position: absolute;
+  right: 18px;
+  bottom: 64px;
+  z-index: 12;
+  background: rgba(15, 23, 42, 0.94);
+  border: 1px solid rgba(255,255,255,0.08);
   color: #f8fafc;
+  padding: 12px 14px;
+  border-radius: 12px;
+  box-shadow: 0 14px 34px rgba(0,0,0,0.28);
   font-size: 14px;
 }
 
-.hack-actions {
-  display: flex;
-  gap: 12px;
-  justify-content: flex-end;
+/* =========================
+   TASKBAR WINDOWS STYLE
+========================= */
+.taskbar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 52px;
+  background: rgba(8, 12, 20, 0.72);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+  z-index: 3;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 0 14px;
 }
 
-.hack-main-btn,
-.hack-close-btn {
+.taskbar-left {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.taskbar-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.taskbar-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 14px;
+  color: #f1f5f9;
+  font-size: 12px;
+  min-width: 0;
+}
+
+.taskbar-icon {
+  width: 38px;
+  height: 38px;
+  border: none;
+  background: transparent;
+  border-radius: 10px;
+  color: white;
+  font-size: 19px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.taskbar-icon:hover {
+  background: rgba(255,255,255,0.12);
+}
+
+.taskbar-icon.active::after {
+  content: "";
+  position: absolute;
+  bottom: 4px;
+  width: 14px;
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.92);
+}
+
+.windows-logo {
+  width: 16px;
+  height: 16px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+}
+
+.windows-logo span {
+  display: block;
+  background: #7dd3fc;
+  border-radius: 1px;
+}
+
+.taskbar-time {
+  text-align: right;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.taskbar-tray {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #e2e8f0;
+  font-size: 14px;
+}
+
+/* =========================
+   MINI JEU HACK STYLE
+========================= */
+.hack-screen {
+  background: linear-gradient(180deg, #0a2f88 0%, #081930 22%, #020202 100%);
+  border-radius: 18px;
+  padding: 14px;
+  border: 1px solid rgba(86, 145, 255, 0.24);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
+}
+
+.hack-panel {
+  background: #020202;
+  min-height: 560px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.04);
+  padding: 18px 22px 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hack-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.hack-header-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.hack-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #8dd8ff, #1d4ed8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+  box-shadow: 0 0 12px rgba(59,130,246,0.55);
+}
+
+.hack-heading {
+  line-height: 1.05;
+}
+
+.hack-heading-main {
+  color: #62d8ff;
+  font-size: 22px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.hack-heading-sub {
+  color: #7fb2d9;
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+.hack-signal {
+  display: flex;
+  gap: 4px;
+  align-items: flex-end;
+  height: 34px;
+  margin-top: 4px;
+}
+
+.hack-signal span {
+  width: 9px;
+  background: #34d3ff;
+  border-radius: 1px;
+  box-shadow: 0 0 8px rgba(52,211,255,0.35);
+}
+
+.hack-signal span:nth-child(1) { height: 12px; }
+.hack-signal span:nth-child(2) { height: 18px; }
+.hack-signal span:nth-child(3) { height: 24px; }
+.hack-signal span:nth-child(4) { height: 31px; }
+.hack-signal span:nth-child(5) { height: 37px; background: #6b7280; box-shadow: none; }
+
+.hack-ip {
+  text-align: center;
+  color: #ff3b30;
+  font-size: 62px;
+  line-height: 1;
+  margin-top: 8px;
+  letter-spacing: 2px;
+  font-weight: 500;
+  text-shadow: 0 0 12px rgba(255,59,48,0.18);
+}
+
+.hack-targets {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  margin-top: 22px;
+  flex-wrap: wrap;
+}
+
+.hack-target {
+  font-family: "Courier New", Consolas, monospace;
+  color: #ff3b30;
+  font-size: 38px;
+  line-height: 1;
+  min-width: 52px;
+  text-align: center;
+  text-shadow: 0 0 8px rgba(255,59,48,0.2);
+}
+
+.hack-target.found {
+  color: #22c55e;
+  text-shadow: 0 0 8px rgba(34,197,94,0.2);
+}
+
+.hack-timer {
+  text-align: center;
+  color: #16d35f;
+  font-size: 30px;
+  margin-top: 22px;
+  margin-bottom: 26px;
+  font-weight: 600;
+  font-family: Consolas, monospace;
+  text-shadow: 0 0 12px rgba(22,211,95,0.25);
+}
+
+.hack-grid {
+  display: grid;
+  grid-template-columns: repeat(10, minmax(44px, 1fr));
+  gap: 10px 18px;
+  justify-items: center;
+  margin: 0 auto 28px;
+  max-width: 820px;
+}
+
+.hack-number {
+  font-family: "Courier New", Consolas, monospace;
+  font-size: 34px;
+  color: #f3f4f6;
+  cursor: pointer;
+  line-height: 1;
+  user-select: none;
+  transition: transform 0.1s ease, color 0.12s ease, opacity 0.12s ease;
+  min-width: 44px;
+  text-align: center;
+}
+
+.hack-number:hover {
+  transform: scale(1.06);
+}
+
+.hack-number.good {
+  color: #22c55e;
+  opacity: 1;
+}
+
+.hack-number.bad {
+  color: #94a3b8;
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.hack-footer-line {
+  width: calc(100% - 40px);
+  height: 8px;
+  margin: 0 auto;
+  background: linear-gradient(90deg, rgba(255,255,255,0.01), rgba(38,38,38,0.4), rgba(255,255,255,0.01));
+  border-radius: 999px;
+}
+
+.hack-status {
+  margin-top: 18px;
+  color: #cbd5e1;
+  font-size: 14px;
+  min-height: 22px;
+  text-align: center;
+}
+
+.hack-toolbar {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 18px;
+  flex-wrap: wrap;
+}
+
+.hack-btn {
   padding: 12px 16px;
   border: none;
   border-radius: 10px;
   cursor: pointer;
   font-weight: 600;
-}
-
-.hack-main-btn {
-  background: #2563eb;
   color: white;
+  background: #1d4ed8;
 }
 
-.hack-close-btn {
+.hack-btn.secondary {
   background: rgba(255,255,255,0.08);
+}
+
+/* =========================
+   MESSAGERIE
+========================= */
+.messaging-app {
+  display: grid;
+  grid-template-columns: 290px 1fr;
+  gap: 0;
+  min-height: 560px;
+  margin: -18px;
+  background: rgba(8, 13, 24, 0.96);
+}
+
+.messaging-sidebar {
+  border-right: 1px solid rgba(255,255,255,0.08);
+  background: rgba(12, 18, 30, 0.98);
+  display: flex;
+  flex-direction: column;
+}
+
+.messaging-sidebar-header {
+  padding: 18px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.messaging-sidebar-header h3 {
+  font-size: 20px;
+  color: #f8fafc;
+  margin-bottom: 10px;
+}
+
+.messaging-search {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.04);
   color: white;
+  outline: none;
+}
+
+.messaging-search::placeholder {
+  color: rgba(255,255,255,0.45);
+}
+
+.contact-list {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+}
+
+.contact-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  border: 1px solid transparent;
+}
+
+.contact-card:hover {
+  background: rgba(255,255,255,0.04);
+}
+
+.contact-card.active {
+  background: rgba(59,130,246,0.18);
+  border-color: rgba(96,165,250,0.22);
+}
+
+.contact-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: white;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.contact-meta {
+  min-width: 0;
+  flex: 1;
+}
+
+.contact-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.contact-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #f8fafc;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.contact-time {
+  font-size: 11px;
+  color: #94a3b8;
+  flex-shrink: 0;
+}
+
+.contact-preview {
+  font-size: 12px;
+  color: #cbd5e1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.messaging-chat {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background:
+    radial-gradient(circle at top left, rgba(37,99,235,0.08), transparent 30%),
+    rgba(10, 14, 24, 0.98);
+}
+
+.chat-header {
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  background: rgba(15, 23, 42, 0.82);
+}
+
+.chat-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.chat-header-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.chat-header-status {
+  font-size: 12px;
+  color: #22c55e;
+  margin-top: 2px;
+}
+
+.chat-header-actions {
+  display: flex;
+  gap: 10px;
+  color: #cbd5e1;
+  font-size: 18px;
+}
+
+.chat-body {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.message-row {
+  display: flex;
+  width: 100%;
+}
+
+.message-row.left {
+  justify-content: flex-start;
+}
+
+.message-row.right {
+  justify-content: flex-end;
+}
+
+.message-bubble {
+  max-width: 72%;
+  padding: 12px 14px;
+  border-radius: 16px;
+  line-height: 1.5;
+  font-size: 14px;
+  position: relative;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+}
+
+.message-row.left .message-bubble {
+  background: rgba(255,255,255,0.08);
+  color: #f8fafc;
+  border-top-left-radius: 6px;
+}
+
+.message-row.right .message-bubble {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: white;
+  border-top-right-radius: 6px;
+}
+
+.message-time {
+  margin-top: 6px;
+  font-size: 11px;
+  opacity: 0.72;
+  text-align: right;
+}
+
+.chat-footer {
+  padding: 16px 20px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  background: rgba(15, 23, 42, 0.82);
+}
+
+.chat-input-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px;
+  padding: 12px 14px;
+}
+
+.chat-input-placeholder {
+  color: rgba(255,255,255,0.45);
+  font-size: 14px;
+  flex: 1;
+}
+
+.chat-send {
+  background: #2563eb;
+  border: none;
+  color: white;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  cursor: default;
+}
+
+@media (max-width: 1100px) {
+  .window {
+    width: calc(100vw - 80px);
+    left: 40px;
+  }
+
+  .hack-grid {
+    grid-template-columns: repeat(5, minmax(44px, 1fr));
+    gap: 12px 16px;
+  }
+
+  .hack-ip {
+    font-size: 42px;
+  }
+}
+
+@media (max-width: 900px) {
+  .messaging-app {
+    grid-template-columns: 1fr;
+  }
+
+  .messaging-sidebar {
+    max-height: 220px;
+  }
+
+  .message-bubble {
+    max-width: 88%;
+  }
+}
+
+@media (max-width: 768px) {
+  .login-box {
+    width: 90%;
+  }
+
+  .session-name {
+    font-size: 28px;
+  }
+
+  .password-row,
+  .login-box button {
+    max-width: 100%;
+  }
+
+  .window {
+    left: 12px;
+    top: 70px;
+    width: calc(100vw - 24px);
+  }
+
+  .taskbar {
+    grid-template-columns: 1fr;
+    padding: 0 8px;
+  }
+
+  .taskbar-left,
+  .taskbar-right {
+    display: none;
+  }
+
+  .usb-notice {
+    right: 10px;
+    left: 10px;
+    bottom: 60px;
+  }
+
+  .hack-panel {
+    min-height: 500px;
+    padding: 14px;
+  }
+
+  .hack-heading-main {
+    font-size: 16px;
+  }
+
+  .hack-heading-sub {
+    font-size: 10px;
+  }
+
+  .hack-ip {
+    font-size: 28px;
+  }
+
+  .hack-target {
+    font-size: 28px;
+    min-width: 40px;
+  }
+
+  .hack-timer {
+    font-size: 22px;
+  }
+
+  .hack-grid {
+    grid-template-columns: repeat(5, minmax(34px, 1fr));
+    gap: 10px 12px;
+  }
+
+  .hack-number {
+    font-size: 24px;
+    min-width: 32px;
+  }
 }
