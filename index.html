@@ -1,23 +1,491 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>NTECH EXAM</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NTECH Exam Simulator</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: #0b1220;
+      color: white;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    #login-screen {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        linear-gradient(135deg, rgba(11,18,32,0.92), rgba(20,30,48,0.92)),
+        url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+    }
+
+    .login-box {
+      width: 420px;
+      padding: 32px;
+      border-radius: 18px;
+      background: rgba(15, 23, 42, 0.88);
+      border: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+      text-align: center;
+    }
+
+    .login-box h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+    }
+
+    .login-box p {
+      color: #cbd5e1;
+      font-size: 14px;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.05);
+      color: white;
+      font-size: 15px;
+      outline: none;
+      margin-bottom: 14px;
+    }
+
+    .login-box button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      background: #2563eb;
+      color: white;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .login-box button:hover {
+      transform: translateY(-1px);
+      background: #1d4ed8;
+    }
+
+    #error-message {
+      min-height: 20px;
+      margin-top: 12px;
+      color: #f87171;
+      font-size: 14px;
+    }
+
+    #desktop-screen {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      background:
+        linear-gradient(rgba(15,23,42,0.2), rgba(15,23,42,0.2)),
+        url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+    }
+
+    .desktop-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(7,10,20,0.08), rgba(7,10,20,0.28));
+    }
+
+    .topbar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 42px;
+      background: rgba(10, 15, 25, 0.75);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      backdrop-filter: blur(8px);
+      z-index: 2;
+    }
+
+    .topbar .title {
+      font-size: 14px;
+      color: #e2e8f0;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+    }
+
+    .topbar .session {
+      font-size: 13px;
+      color: #cbd5e1;
+    }
+
+    .desktop-icons {
+      position: absolute;
+      top: 70px;
+      left: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      z-index: 2;
+    }
+
+    .desktop-icon {
+      width: 92px;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .desktop-icon .emoji {
+      font-size: 38px;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .desktop-icon .label {
+      font-size: 13px;
+      line-height: 1.3;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.55);
+    }
+
+    .window {
+      position: absolute;
+      top: 100px;
+      left: 180px;
+      width: 720px;
+      max-width: calc(100vw - 220px);
+      min-height: 420px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+      z-index: 5;
+    }
+
+    .window-header {
+      height: 46px;
+      background: rgba(30, 41, 59, 0.95);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .window-header h2 {
+      font-size: 15px;
+      color: #f8fafc;
+      font-weight: 600;
+    }
+
+    .close-btn {
+      border: none;
+      background: #ef4444;
+      color: white;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .window-content {
+      padding: 18px;
+      color: #e2e8f0;
+    }
+
+    .folder-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 16px;
+      margin-top: 8px;
+    }
+
+    .folder-item {
+      padding: 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .folder-item:hover {
+      background: rgba(255,255,255,0.08);
+      transform: translateY(-1px);
+    }
+
+    .folder-item span {
+      display: block;
+    }
+
+    .folder-item .emoji {
+      font-size: 34px;
+      margin-bottom: 8px;
+    }
+
+    .folder-item .name {
+      font-size: 14px;
+    }
+
+    .file-box {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 14px;
+      white-space: pre-line;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .taskbar {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 54px;
+      background: rgba(10, 15, 25, 0.82);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      z-index: 3;
+      backdrop-filter: blur(10px);
+    }
+
+    .start-btn {
+      background: rgba(37, 99, 235, 0.95);
+      border: none;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .clock {
+      font-size: 13px;
+      color: #cbd5e1;
+    }
+  </style>
 </head>
 <body>
+  <section id="login-screen">
+    <div class="login-box">
+      <h1>POSTE INFORMATIQUE SAISI</h1>
+      <p>
+        Veuillez saisir le mot de passe communiqué dans le dossier d'enquête<br>
+        afin d'accéder à la session utilisateur.
+      </p>
+      <input type="password" id="password-input" placeholder="Mot de passe" />
+      <button id="login-button">Se connecter</button>
+      <div id="error-message"></div>
+    </div>
+  </section>
 
-<h1>📁 Terminal NTECH</h1>
+  <section id="desktop-screen" class="hidden">
+    <div class="desktop-overlay"></div>
 
-<div id="desktop">
-  <div class="icon" onclick="openPhone()">📱 Téléphone</div>
-  <div class="icon" onclick="openComputer()">💻 Ordinateur</div>
-</div>
+    <div class="topbar">
+      <div class="title">SESSION UTILISATEUR — ORDINATEUR PERSONNEL</div>
+      <div class="session">Utilisateur : ethan.morel</div>
+    </div>
 
-<div id="viewer"></div>
+    <div class="desktop-icons">
+      <div class="desktop-icon" onclick="openWindow('documents')">
+        <span class="emoji">📁</span>
+        <span class="label">Documents</span>
+      </div>
+      <div class="desktop-icon" onclick="openWindow('messages')">
+        <span class="emoji">💬</span>
+        <span class="label">Messagerie</span>
+      </div>
+      <div class="desktop-icon" onclick="openWindow('browser')">
+        <span class="emoji">🌐</span>
+        <span class="label">Navigateur</span>
+      </div>
+      <div class="desktop-icon" onclick="openWindow('downloads')">
+        <span class="emoji">📥</span>
+        <span class="label">Téléchargements</span>
+      </div>
+    </div>
 
-<button onclick="goToReport()">Rédiger Rapport</button>
+    <div id="app-window" class="window hidden">
+      <div class="window-header">
+        <h2 id="window-title">Fenêtre</h2>
+        <button class="close-btn" onclick="closeWindow()">X</button>
+      </div>
+      <div class="window-content" id="window-content"></div>
+    </div>
 
-<script src="script.js"></script>
+    <div class="taskbar">
+      <button class="start-btn">NTECH OS</button>
+      <div class="clock" id="clock"></div>
+    </div>
+  </section>
+
+  <script>
+    const COMPUTER_PASSWORD = 'ENTREPOT22';
+
+    const data = {
+      documents: {
+        title: 'Documents',
+        content: `
+          <p>Répertoire principal de l'utilisateur.</p>
+          <div class="folder-grid">
+            <div class="folder-item" onclick="showFile('clients')">
+              <span class="emoji">📄</span>
+              <span class="name">clients.txt</span>
+            </div>
+            <div class="folder-item" onclick="showFile('planning')">
+              <span class="emoji">📄</span>
+              <span class="name">planning.txt</span>
+            </div>
+            <div class="folder-item" onclick="showFile('notes')">
+              <span class="emoji">📄</span>
+              <span class="name">notes_perso.txt</span>
+            </div>
+          </div>
+          <div id="inner-file-view"></div>
+        `
+      },
+      messages: {
+        title: 'Messagerie',
+        content: `
+          <p>Dernières conversations enregistrées sur le poste.</p>
+          <div class="file-box">
+<strong>Fournisseur :</strong> rdv 22h entrepôt
+<strong>Fournisseur :</strong> j'ai la marchandise
+<strong>Numéro inconnu :</strong> fais attention aux gendarmes
+          </div>
+        `
+      },
+      browser: {
+        title: 'Historique du navigateur',
+        content: `
+          <div class="file-box">
+- prix kilo cocaïne
+- entrepôt abandonné Paleto localisation
+- comment effacer historique ordinateur
+- téléphone chiffré application
+          </div>
+        `
+      },
+      downloads: {
+        title: 'Téléchargements',
+        content: `
+          <div class="file-box">
+- facture_scan.pdf
+- plan_entrepot.jpg
+- contact_fournisseur.vcf
+          </div>
+        `
+      }
+    };
+
+    const files = {
+      clients: `
+Nom : Client A — Montant : 5 000€
+Nom : Client B — Montant : 12 000€
+Nom : Client C — Montant : 3 500€
+      `,
+      planning: `
+Lundi : repérage
+Mardi : livraison 22h
+Mercredi : encaissement
+      `,
+      notes: `
+Penser à changer de numéro.
+Ne pas oublier le rendez-vous à l'entrepôt.
+Supprimer les traces après la remise.
+      `
+    };
+
+    const loginScreen = document.getElementById('login-screen');
+    const desktopScreen = document.getElementById('desktop-screen');
+    const passwordInput = document.getElementById('password-input');
+    const loginButton = document.getElementById('login-button');
+    const errorMessage = document.getElementById('error-message');
+    const appWindow = document.getElementById('app-window');
+    const windowTitle = document.getElementById('window-title');
+    const windowContent = document.getElementById('window-content');
+
+    loginButton.addEventListener('click', tryLogin);
+    passwordInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') tryLogin();
+    });
+
+    function tryLogin() {
+      const attempt = passwordInput.value.trim();
+
+      if (attempt === COMPUTER_PASSWORD) {
+        loginScreen.classList.add('hidden');
+        desktopScreen.classList.remove('hidden');
+        errorMessage.textContent = '';
+      } else {
+        errorMessage.textContent = 'Mot de passe incorrect.';
+      }
+    }
+
+    function openWindow(key) {
+      const app = data[key];
+      if (!app) return;
+
+      windowTitle.textContent = app.title;
+      windowContent.innerHTML = app.content;
+      appWindow.classList.remove('hidden');
+    }
+
+    function closeWindow() {
+      appWindow.classList.add('hidden');
+    }
+
+    function showFile(fileKey) {
+      const content = files[fileKey];
+      const target = document.getElementById('inner-file-view');
+      if (!target || !content) return;
+
+      target.innerHTML = `<div class="file-box">${content}</div>`;
+    }
+
+    function updateClock() {
+      const now = new Date();
+      const formatted = now.toLocaleString('fr-FR', {
+        hour: '2-digit',
+        minute: '2-digit',
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+      });
+      document.getElementById('clock').textContent = formatted;
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
+  </script>
 </body>
 </html>
