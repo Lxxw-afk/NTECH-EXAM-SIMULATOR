@@ -9,7 +9,6 @@ const notesData = {
 - Dépôt temporaire : container 14 au port
 - Toujours changer de véhicule avant les remises importantes`
   },
-
   consignes: {
     title: "Consignes",
     date: "Dernière modification : 16/04/2026 - 18:41",
@@ -18,7 +17,6 @@ const notesData = {
 - Vérifier les plaques autour de l'entrepôt
 - Si présence inhabituelle : annuler la remise`
   },
-
   paiements: {
     title: "Paiements",
     date: "Dernière modification : 17/04/2026 - 23:03",
@@ -27,7 +25,6 @@ const notesData = {
 - Fournisseur : règlement après livraison complète
 - Prévoir liquide uniquement pour les gros montants`
   },
-
   materiels: {
     title: "Matériels",
     date: "Dernière modification : 18/04/2026 - 01:12",
@@ -41,6 +38,72 @@ const notesData = {
 ⚠️ Nettoyer le matériel après chaque opération`
   }
 };
+
+const conversations = {
+  fournisseur: {
+    name: "Fournisseur",
+    avatar: "F",
+    time: "21:47",
+    preview: "supprime les messages après",
+    status: "Connecté récemment",
+    messages: [
+      { side: "left", type: "text", text: "t'es dispo ce soir ?", time: "21:41" },
+      { side: "right", type: "text", text: "oui, dis-moi", time: "21:42" },
+      { side: "left", type: "text", text: "rdv 22h à l'entrepôt", time: "21:43" },
+      { side: "left", type: "text", text: "je t'envoie la position", time: "21:43" },
+      {
+        side: "left",
+        type: "location",
+        title: "📍 Position partagée",
+        subtitle: "Entrepôt abandonné, zone industrielle de Paleto",
+        time: "21:44"
+      },
+      { side: "left", type: "text", text: "j'ai la marchandise", time: "21:45" },
+      { side: "right", type: "text", text: "ok je viens seul", time: "21:46" },
+      { side: "left", type: "text", text: "supprime les messages après", time: "21:47" }
+    ]
+  },
+  inconnu: {
+    name: "Numéro inconnu",
+    avatar: "N",
+    time: "20:51",
+    preview: "fais attention aux gendarmes",
+    status: "Statut inconnu",
+    messages: [
+      { side: "left", type: "text", text: "fais attention aux gendarmes", time: "20:51" },
+      { side: "left", type: "text", text: "j'ai vu deux véhicules tourner autour du dépôt", time: "20:52" },
+      { side: "right", type: "text", text: "t'es sûr ?", time: "20:53" },
+      { side: "left", type: "text", text: "oui, change d'itinéraire ce soir", time: "20:54" }
+    ]
+  },
+  clientA: {
+    name: "Lucas Morel",
+    avatar: "L",
+    time: "Hier",
+    preview: "je passe demain pour récupérer",
+    status: "Vu hier",
+    messages: [
+      { side: "right", type: "text", text: "t'as ce qu'il faut pour demain ?", time: "18:12" },
+      { side: "left", type: "text", text: "oui, je passe demain pour récupérer", time: "18:14" },
+      { side: "right", type: "text", text: "viens seul", time: "18:16" }
+    ]
+  },
+  clientB: {
+    name: "Kevin Dubois",
+    avatar: "K",
+    time: "Hier",
+    preview: "j'ai préparé l'argent",
+    status: "Hors ligne",
+    messages: [
+      { side: "left", type: "text", text: "j'ai préparé l'argent", time: "17:21" },
+      { side: "right", type: "text", text: "ok, garde tout sur toi", time: "17:24" },
+      { side: "left", type: "text", text: "on fait comme la dernière fois ?", time: "17:26" }
+    ]
+  }
+};
+
+let currentConversationKey = "fournisseur";
+
 const data = {
   documents: {
     title: "Documents",
@@ -82,150 +145,6 @@ const data = {
                 <div class="docs-file-name">notes_perso.txt</div>
                 <div class="docs-file-meta">Bloc-notes • plusieurs onglets</div>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    `
-  },
-  messages: {
-    title: "Messagerie",
-    content: `
-      <div class="messaging-app">
-        <div class="messaging-sidebar">
-          <div class="messaging-sidebar-header">
-            <h3>Messagerie</h3>
-            <input class="messaging-search" type="text" placeholder="Rechercher une conversation" />
-          </div>
-
-          <div class="contact-list">
-            <div class="contact-card active">
-              <div class="contact-avatar">F</div>
-              <div class="contact-meta">
-                <div class="contact-top">
-                  <div class="contact-name">Fournisseur</div>
-                  <div class="contact-time">21:47</div>
-                </div>
-                <div class="contact-preview">supprime les messages après</div>
-              </div>
-            </div>
-
-            <div class="contact-card">
-              <div class="contact-avatar">N</div>
-              <div class="contact-meta">
-                <div class="contact-top">
-                  <div class="contact-name">Numéro inconnu</div>
-                  <div class="contact-time">20:51</div>
-                </div>
-                <div class="contact-preview">fais attention aux gendarmes</div>
-              </div>
-            </div>
-
-            <div class="contact-card">
-              <div class="contact-avatar">C</div>
-              <div class="contact-meta">
-                <div class="contact-top">
-                  <div class="contact-name">Client A</div>
-                  <div class="contact-time">Hier</div>
-                </div>
-                <div class="contact-preview">je passe demain pour récupérer</div>
-              </div>
-            </div>
-
-            <div class="contact-card">
-              <div class="contact-avatar">C</div>
-              <div class="contact-meta">
-                <div class="contact-top">
-                  <div class="contact-name">Client B</div>
-                  <div class="contact-time">Hier</div>
-                </div>
-                <div class="contact-preview">j'ai préparé l'argent</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="messaging-chat">
-          <div class="chat-header">
-            <div class="chat-header-left">
-              <div class="contact-avatar">F</div>
-              <div>
-                <div class="chat-header-name">Fournisseur</div>
-                <div class="chat-header-status">Connecté récemment</div>
-              </div>
-            </div>
-
-            <div class="chat-header-actions">
-              <span>📞</span>
-              <span>📎</span>
-              <span>⋯</span>
-            </div>
-          </div>
-
-          <div class="chat-body">
-            <div class="message-row left">
-              <div class="message-bubble">
-                t'es dispo ce soir ?
-                <div class="message-time">21:41</div>
-              </div>
-            </div>
-
-            <div class="message-row right">
-              <div class="message-bubble">
-                oui, dis-moi
-                <div class="message-time">21:42</div>
-              </div>
-            </div>
-
-            <div class="message-row left">
-              <div class="message-bubble">
-                rdv 22h à l'entrepôt
-                <div class="message-time">21:43</div>
-              </div>
-            </div>
-
-            <div class="message-row left">
-              <div class="message-bubble">
-                je t'envoie la position
-                <div class="message-time">21:43</div>
-              </div>
-            </div>
-
-            <div class="message-row left">
-              <div class="message-bubble">
-                📍 Position partagée<br>
-                Entrepôt abandonné, zone industrielle de Paleto
-                <div class="message-time">21:44</div>
-              </div>
-            </div>
-
-            <div class="message-row left">
-              <div class="message-bubble">
-                j'ai la marchandise
-                <div class="message-time">21:45</div>
-              </div>
-            </div>
-
-            <div class="message-row right">
-              <div class="message-bubble">
-                ok je viens seul
-                <div class="message-time">21:46</div>
-              </div>
-            </div>
-
-            <div class="message-row left">
-              <div class="message-bubble">
-                supprime les messages après
-                <div class="message-time">21:47</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="chat-footer">
-            <div class="chat-input-row">
-              <span>😊</span>
-              <div class="chat-input-placeholder">Écrire un message...</div>
-              <button class="chat-send">➤</button>
             </div>
           </div>
         </div>
@@ -303,10 +222,16 @@ function tryLogin() {
 }
 
 function openWindow(key) {
+  stopHackGame();
+
+  if (key === "messages") {
+    renderMessagingApp(currentConversationKey);
+    return;
+  }
+
   const app = data[key];
   if (!app) return;
 
-  stopHackGame();
   windowTitle.textContent = app.title;
   windowContent.innerHTML = app.content;
   appWindow.classList.remove("hidden");
@@ -358,18 +283,18 @@ function openDocumentApp(type) {
                 <th>Date</th>
               </tr>
             </thead>
-           <tbody>
-  <tr><td>Lucas Morel</td><td>Marchandise blanche</td><td>2 kg</td><td>5 000€</td><td>Liquide</td><td>Payé</td><td>12/04</td></tr>
-  <tr><td>Kevin Dubois</td><td>Résine</td><td>5 paquets</td><td>12 000€</td><td>Liquide</td><td>Partiel</td><td>13/04</td></tr>
-  <tr><td>Mathis Leroy</td><td>Métaux</td><td>3 caisses</td><td>3 500€</td><td>Liquide</td><td>Payé</td><td>14/04</td></tr>
-  <tr><td>Enzo Garcia</td><td>Armes démontées</td><td>2 lots</td><td>18 000€</td><td>Crypto</td><td>En attente</td><td>14/04</td></tr>
-  <tr><td>Thomas Bernard</td><td>Marchandise blanche</td><td>1 kg</td><td>2 700€</td><td>Liquide</td><td>Payé</td><td>15/04</td></tr>
-  <tr><td>Hugo Petit</td><td>Plaques vierges</td><td>10 unités</td><td>1 200€</td><td>Liquide</td><td>Payé</td><td>15/04</td></tr>
-  <tr><td>Antoine Robert</td><td>Composants</td><td>4 lots</td><td>7 600€</td><td>Crypto</td><td>En attente</td><td>16/04</td></tr>
-  <tr><td>Nathan Richard</td><td>Munitions</td><td>8 boîtes</td><td>4 900€</td><td>Liquide</td><td>Payé</td><td>16/04</td></tr>
-  <tr><td>Maxime Durand</td><td>Résine</td><td>9 paquets</td><td>8 100€</td><td>Liquide</td><td>Payé</td><td>17/04</td></tr>
-  <tr><td>Alexandre Michel</td><td>Équipement</td><td>1 lot</td><td>6 400€</td><td>Crypto</td><td>En attente</td><td>17/04</td></tr>
-</tbody>
+            <tbody>
+              <tr><td>Lucas Morel</td><td>Marchandise blanche</td><td>2 kg</td><td>5 000€</td><td>Liquide</td><td>Payé</td><td>12/04</td></tr>
+              <tr><td>Kevin Dubois</td><td>Résine</td><td>5 paquets</td><td>12 000€</td><td>Liquide</td><td>Partiel</td><td>13/04</td></tr>
+              <tr><td>Mathis Leroy</td><td>Métaux</td><td>3 caisses</td><td>3 500€</td><td>Liquide</td><td>Payé</td><td>14/04</td></tr>
+              <tr><td>Enzo Garcia</td><td>Armes démontées</td><td>2 lots</td><td>18 000€</td><td>Crypto</td><td>En attente</td><td>14/04</td></tr>
+              <tr><td>Thomas Bernard</td><td>Marchandise blanche</td><td>1 kg</td><td>2 700€</td><td>Liquide</td><td>Payé</td><td>15/04</td></tr>
+              <tr><td>Hugo Petit</td><td>Plaques vierges</td><td>10 unités</td><td>1 200€</td><td>Liquide</td><td>Payé</td><td>15/04</td></tr>
+              <tr><td>Antoine Robert</td><td>Composants</td><td>4 lots</td><td>7 600€</td><td>Crypto</td><td>En attente</td><td>16/04</td></tr>
+              <tr><td>Nathan Richard</td><td>Munitions</td><td>8 boîtes</td><td>4 900€</td><td>Liquide</td><td>Payé</td><td>16/04</td></tr>
+              <tr><td>Maxime Durand</td><td>Résine</td><td>9 paquets</td><td>8 100€</td><td>Liquide</td><td>Payé</td><td>17/04</td></tr>
+              <tr><td>Alexandre Michel</td><td>Équipement</td><td>1 lot</td><td>6 400€</td><td>Crypto</td><td>En attente</td><td>17/04</td></tr>
+            </tbody>
           </table>
         </div>
       </div>
@@ -505,9 +430,172 @@ function switchNoteTab(key) {
   windowContent.innerHTML = renderNotesApp(key);
 }
 
+function renderMessagingApp(activeKey = "fournisseur") {
+  currentConversationKey = activeKey;
+  const convo = conversations[activeKey];
+
+  const contactListHtml = Object.entries(conversations).map(([key, item]) => `
+    <div class="contact-card ${key === activeKey ? "active" : ""}" onclick="selectConversation('${key}')">
+      <div class="contact-avatar">${item.avatar}</div>
+      <div class="contact-meta">
+        <div class="contact-top">
+          <div class="contact-name">${item.name}</div>
+          <div class="contact-time">${item.time}</div>
+        </div>
+        <div class="contact-preview">${item.preview}</div>
+      </div>
+    </div>
+  `).join("");
+
+  const messagesHtml = convo.messages.map((msg) => {
+    if (msg.type === "location") {
+      return `
+        <div class="message-row ${msg.side}">
+          <div class="message-bubble clickable">
+            <div class="location-card" onclick="openMapFromMessage()">
+              <div class="location-title">${msg.title}</div>
+              <div class="location-sub">${msg.subtitle}</div>
+              <div class="location-open">Cliquer pour ouvrir la carte</div>
+            </div>
+            <div class="message-time">${msg.time}</div>
+          </div>
+        </div>
+      `;
+    }
+
+    return `
+      <div class="message-row ${msg.side}">
+        <div class="message-bubble">
+          ${msg.text}
+          <div class="message-time">${msg.time}</div>
+        </div>
+      </div>
+    `;
+  }).join("");
+
+  windowTitle.textContent = "Messagerie";
+  windowContent.innerHTML = `
+    <div class="messaging-app">
+      <div class="messaging-sidebar">
+        <div class="messaging-sidebar-header">
+          <h3>Messagerie</h3>
+          <input class="messaging-search" type="text" placeholder="Rechercher une conversation" />
+        </div>
+
+        <div class="contact-list">
+          ${contactListHtml}
+        </div>
+      </div>
+
+      <div class="messaging-chat">
+        <div class="chat-header">
+          <div class="chat-header-left">
+            <div class="contact-avatar">${convo.avatar}</div>
+            <div>
+              <div class="chat-header-name">${convo.name}</div>
+              <div class="chat-header-status">${convo.status}</div>
+            </div>
+          </div>
+
+          <div class="chat-header-actions">
+            <span>📞</span>
+            <span>📎</span>
+            <span>⋯</span>
+          </div>
+        </div>
+
+        <div class="chat-body">
+          ${messagesHtml}
+        </div>
+
+        <div class="chat-footer">
+          <div class="chat-input-row">
+            <span>😊</span>
+            <div class="chat-input-placeholder">Écrire un message...</div>
+            <button class="chat-send">➤</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+  appWindow.classList.remove("hidden");
+}
+
+function selectConversation(key) {
+  renderMessagingApp(key);
+}
+
+function openMapFromMessage() {
+  stopHackGame();
+  windowTitle.textContent = "Position partagée";
+  windowContent.innerHTML = `
+    <div class="map-app">
+      <div class="map-sidebar">
+        <div class="map-badge">Position envoyée par Fournisseur</div>
+        <h3>Entrepôt abandonné</h3>
+
+        <div class="map-meta">
+          <strong>Zone :</strong> Industrielle de Paleto<br>
+          <strong>Point de rendez-vous :</strong> 22h00<br>
+          <strong>Accès conseillé :</strong> route latérale nord<br>
+          <strong>Coordonnées :</strong> X: 184 / Y: 96
+        </div>
+
+        <div class="map-notes">
+          - Entrée principale au sud<br>
+          - Stationnement discret possible à l'ouest<br>
+          - Grande porte métallique côté dépôt<br>
+          - Bâtiment visé : hangar principal
+        </div>
+
+        <button class="status-btn" onclick="renderMessagingApp('fournisseur')">Retour à la conversation</button>
+      </div>
+
+      <div class="map-canvas-wrap">
+        <div class="map-toolbar">
+          <div class="map-toolbar-title">Carte de localisation</div>
+          <div>Mode : Position reçue</div>
+        </div>
+
+        <div class="map-canvas">
+          <div class="map-road horizontal" style="left: 40px; top: 120px; width: 420px;"></div>
+          <div class="map-road horizontal" style="left: 280px; top: 300px; width: 360px;"></div>
+          <div class="map-road vertical" style="left: 210px; top: 70px; height: 340px;"></div>
+          <div class="map-road vertical" style="left: 540px; top: 140px; height: 260px;"></div>
+          <div class="map-road diagonal" style="left: 110px; top: 420px; width: 320px;"></div>
+
+          <div class="map-zone" style="left: 80px; top: 70px; width: 120px; height: 70px;">Zone résidentielle</div>
+          <div class="map-zone" style="left: 300px; top: 150px; width: 180px; height: 110px;">Zone industrielle</div>
+          <div class="map-zone" style="left: 590px; top: 80px; width: 150px; height: 90px;">Dépôts</div>
+          <div class="map-zone" style="left: 620px; top: 320px; width: 140px; height: 90px;">Port / Containers</div>
+
+          <div class="map-route" style="left: 180px; top: 360px; width: 270px; transform: rotate(-22deg);"></div>
+
+          <div class="map-marker" style="left: 450px; top: 265px;">
+            <div class="map-pin"></div>
+            <div class="map-marker-label">Entrepôt abandonné</div>
+          </div>
+
+          <div class="map-marker" style="left: 190px; top: 385px;">
+            <div class="map-pin" style="background:#60a5fa; box-shadow:0 0 0 6px rgba(96,165,250,0.12);"></div>
+            <div class="map-marker-label">Point d'approche</div>
+          </div>
+        </div>
+
+        <div class="map-legend">
+          <div class="map-legend-item"><span class="map-dot red"></span> Position du rendez-vous</div>
+          <div class="map-legend-item"><span class="map-dot blue"></span> Point d'approche conseillé</div>
+          <div class="map-legend-item"><span class="map-dot green"></span> Itinéraire suggéré</div>
+        </div>
+      </div>
+    </div>
+  `;
+  appWindow.classList.remove("hidden");
+}
+
 function openMessagingAccess() {
   if (messagingUnlocked) {
-    openWindow("messages");
+    renderMessagingApp(currentConversationKey);
     return;
   }
 
@@ -712,7 +800,7 @@ function succeedHackGame() {
   }
 
   setTimeout(() => {
-    openWindow("messages");
+    renderMessagingApp("fournisseur");
   }, 900);
 }
 
