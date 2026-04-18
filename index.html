@@ -193,7 +193,7 @@
       position: absolute;
       top: 100px;
       left: 180px;
-      width: 720px;
+      width: 900px;
       max-width: calc(100vw - 220px);
       min-height: 420px;
       background: rgba(15, 23, 42, 0.96);
@@ -428,75 +428,209 @@
     }
 
     /* =========================
-       MINI APP HACK
+       MINI JEU HACK STYLE
     ========================= */
-    .hack-app {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 14px;
-      padding: 18px;
-      margin-top: 12px;
+    .hack-screen {
+      background: linear-gradient(180deg, #0a2f88 0%, #081930 22%, #020202 100%);
+      border-radius: 18px;
+      padding: 14px;
+      border: 1px solid rgba(86, 145, 255, 0.24);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
     }
 
-    .hack-app h3 {
-      font-size: 20px;
-      margin-bottom: 10px;
-      color: #f8fafc;
-    }
-
-    .hack-app p {
-      color: #cbd5e1;
-      line-height: 1.6;
-      margin-bottom: 16px;
-    }
-
-    .hack-progress {
-      width: 100%;
-      height: 16px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.08);
+    .hack-panel {
+      background: #020202;
+      min-height: 560px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.04);
+      padding: 18px 22px 24px;
+      position: relative;
       overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.06);
-      margin-bottom: 16px;
     }
 
-    .hack-progress-bar {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, #22c55e, #3b82f6);
-      transition: width 0.15s linear;
+    .hack-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 6px;
     }
 
-    .hack-actions {
+    .hack-header-left {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .hack-badge {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #8dd8ff, #1d4ed8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+      box-shadow: 0 0 12px rgba(59,130,246,0.55);
+    }
+
+    .hack-heading {
+      line-height: 1.05;
+    }
+
+    .hack-heading-main {
+      color: #62d8ff;
+      font-size: 22px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .hack-heading-sub {
+      color: #7fb2d9;
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    .hack-signal {
+      display: flex;
+      gap: 4px;
+      align-items: flex-end;
+      height: 34px;
+      margin-top: 4px;
+    }
+
+    .hack-signal span {
+      width: 9px;
+      background: #34d3ff;
+      border-radius: 1px;
+      box-shadow: 0 0 8px rgba(52,211,255,0.35);
+    }
+
+    .hack-signal span:nth-child(1) { height: 12px; }
+    .hack-signal span:nth-child(2) { height: 18px; }
+    .hack-signal span:nth-child(3) { height: 24px; }
+    .hack-signal span:nth-child(4) { height: 31px; }
+    .hack-signal span:nth-child(5) { height: 37px; background: #6b7280; box-shadow: none; }
+
+    .hack-ip {
+      text-align: center;
+      color: #ff3b30;
+      font-size: 62px;
+      line-height: 1;
+      margin-top: 8px;
+      letter-spacing: 2px;
+      font-weight: 500;
+      text-shadow: 0 0 12px rgba(255,59,48,0.18);
+    }
+
+    .hack-timer {
+      text-align: center;
+      color: #16d35f;
+      font-size: 30px;
+      margin-top: 22px;
+      margin-bottom: 26px;
+      font-weight: 600;
+      font-family: Consolas, monospace;
+      text-shadow: 0 0 12px rgba(22,211,95,0.25);
+    }
+
+    .hack-grid {
+      display: grid;
+      grid-template-columns: repeat(10, minmax(44px, 1fr));
+      gap: 10px 18px;
+      justify-items: center;
+      margin: 0 auto 28px;
+      max-width: 820px;
+    }
+
+    .hack-number {
+      font-family: "Courier New", Consolas, monospace;
+      font-size: 34px;
+      color: #f3f4f6;
+      cursor: pointer;
+      line-height: 1;
+      user-select: none;
+      transition: transform 0.1s ease, color 0.12s ease, opacity 0.12s ease;
+      min-width: 44px;
+      text-align: center;
+    }
+
+    .hack-number:hover {
+      transform: scale(1.06);
+    }
+
+    .hack-number.target {
+      color: #ff3b30;
+      text-shadow: 0 0 8px rgba(255,59,48,0.2);
+    }
+
+    .hack-number.good {
+      color: #22c55e;
+      opacity: 1;
+    }
+
+    .hack-number.bad {
+      color: #94a3b8;
+      opacity: 0.45;
+      pointer-events: none;
+    }
+
+    .hack-footer-line {
+      width: calc(100% - 40px);
+      height: 8px;
+      margin: 0 auto;
+      background: linear-gradient(90deg, rgba(255,255,255,0.01), rgba(38,38,38,0.4), rgba(255,255,255,0.01));
+      border-radius: 999px;
+    }
+
+    .hack-status {
+      margin-top: 18px;
+      color: #cbd5e1;
+      font-size: 14px;
+      min-height: 22px;
+      text-align: center;
+    }
+
+    .hack-toolbar {
       display: flex;
       gap: 12px;
+      justify-content: center;
+      margin-top: 18px;
       flex-wrap: wrap;
     }
 
-    .hack-main-btn,
-    .hack-secondary-btn {
+    .hack-btn {
       padding: 12px 16px;
       border: none;
       border-radius: 10px;
       cursor: pointer;
       font-weight: 600;
-    }
-
-    .hack-main-btn {
-      background: #2563eb;
       color: white;
+      background: #1d4ed8;
     }
 
-    .hack-secondary-btn {
+    .hack-btn.secondary {
       background: rgba(255,255,255,0.08);
-      color: white;
     }
 
-    .hack-result {
-      min-height: 24px;
-      margin-top: 14px;
-      font-size: 14px;
-      color: #f8fafc;
+    @media (max-width: 1100px) {
+      .window {
+        width: calc(100vw - 80px);
+        left: 40px;
+      }
+
+      .hack-grid {
+        grid-template-columns: repeat(5, minmax(44px, 1fr));
+        gap: 12px 16px;
+      }
+
+      .hack-ip {
+        font-size: 42px;
+      }
     }
 
     @media (max-width: 768px) {
@@ -514,9 +648,9 @@
       }
 
       .window {
-        left: 20px;
-        top: 90px;
-        width: calc(100vw - 40px);
+        left: 12px;
+        top: 70px;
+        width: calc(100vw - 24px);
       }
 
       .taskbar {
@@ -533,6 +667,37 @@
         right: 10px;
         left: 10px;
         bottom: 60px;
+      }
+
+      .hack-panel {
+        min-height: 500px;
+        padding: 14px;
+      }
+
+      .hack-heading-main {
+        font-size: 16px;
+      }
+
+      .hack-heading-sub {
+        font-size: 10px;
+      }
+
+      .hack-ip {
+        font-size: 28px;
+      }
+
+      .hack-timer {
+        font-size: 22px;
+      }
+
+      .hack-grid {
+        grid-template-columns: repeat(5, minmax(34px, 1fr));
+        gap: 10px 12px;
+      }
+
+      .hack-number {
+        font-size: 24px;
+        min-width: 32px;
       }
     }
   </style>
@@ -724,9 +889,12 @@ Supprimer les traces après la remise.
 
     let messagingUnlocked = false;
     let usbInserted = false;
-    let hackInProgress = false;
-    let hackProgress = 0;
-    let hackInterval = null;
+
+    let hackTargets = [];
+    let hackFound = [];
+    let hackTimerInterval = null;
+    let hackTimeLeftMs = 49224;
+    let hackGameRunning = false;
 
     loginButton.addEventListener("click", tryLogin);
 
@@ -758,6 +926,7 @@ Supprimer les traces après la remise.
       const app = data[key];
       if (!app) return;
 
+      stopHackGame();
       windowTitle.textContent = app.title;
       windowContent.innerHTML = app.content;
       appWindow.classList.remove("hidden");
@@ -765,7 +934,7 @@ Supprimer les traces après la remise.
 
     function closeWindow() {
       appWindow.classList.add("hidden");
-      stopHackProcess();
+      stopHackGame();
     }
 
     function showFile(fileKey) {
@@ -792,6 +961,7 @@ Supprimer les traces après la remise.
         return;
       }
 
+      stopHackGame();
       windowTitle.textContent = "Messagerie";
       windowContent.innerHTML = `
         <div class="status-box">
@@ -827,6 +997,7 @@ Supprimer les traces après la remise.
     }
 
     function openUsbDrive() {
+      stopHackGame();
       windowTitle.textContent = "Clé USB";
       windowContent.innerHTML = `
         <p>Support externe détecté.</p>
@@ -841,105 +1012,179 @@ Supprimer les traces après la remise.
     }
 
     function openHackApp() {
+      stopHackGame();
       windowTitle.textContent = "messenger_bypass.exe";
       windowContent.innerHTML = `
-        <div class="hack-app">
-          <h3>Module de contournement — Messagerie sécurisée</h3>
-          <p>
-            Cet utilitaire permet d'injecter une clé de déverrouillage dans le service de messagerie.
-            Lancez le processus et attendez la fin du contournement.
-          </p>
+        <div class="hack-screen">
+          <div class="hack-panel">
+            <div class="hack-header">
+              <div class="hack-header-left">
+                <div class="hack-badge">🔓</div>
+                <div class="hack-heading">
+                  <div class="hack-heading-main">CONNECTING TO THE HOST</div>
+                  <div class="hack-heading-sub">COMPROMISING GLOBAL SECURITY ONE SLIP AT A TIME</div>
+                </div>
+              </div>
 
-          <div class="hack-progress">
-            <div id="hack-progress-bar" class="hack-progress-bar"></div>
-          </div>
+              <div class="hack-signal">
+                <span></span><span></span><span></span><span></span><span></span>
+              </div>
+            </div>
 
-          <div class="hack-actions">
-            <button class="hack-main-btn" onclick="startHackProcess()">Lancer le hack</button>
-            <button class="hack-secondary-btn" onclick="stopHackProcess()">Arrêter</button>
-          </div>
+            <div class="hack-ip" id="hack-ip">23.03.29.92</div>
+            <div class="hack-timer" id="hack-timer">00:49:224</div>
 
-          <div id="hack-result" class="hack-result">
-            En attente d'exécution.
+            <div class="hack-grid" id="hack-grid"></div>
+
+            <div class="hack-footer-line"></div>
+
+            <div class="hack-status" id="hack-status">
+              Sélectionnez les 4 anomalies rouges avant la fin du temps.
+            </div>
+
+            <div class="hack-toolbar">
+              <button class="hack-btn" onclick="startHackNumbersGame()">Lancer le piratage</button>
+              <button class="hack-btn secondary" onclick="resetHackNumbersGame()">Réinitialiser</button>
+            </div>
           </div>
         </div>
       `;
       appWindow.classList.remove("hidden");
+      startHackNumbersGame();
     }
 
-    function startHackProcess() {
-      if (messagingUnlocked) {
-        const result = document.getElementById("hack-result");
-        const bar = document.getElementById("hack-progress-bar");
-        if (result) result.textContent = "Messagerie déjà déverrouillée.";
-        if (bar) bar.style.width = "100%";
-        return;
+    function startHackNumbersGame() {
+      stopHackGame();
+      hackGameRunning = true;
+      hackFound = [];
+      hackTargets = [];
+      hackTimeLeftMs = 49224;
+
+      const totalCells = 80;
+      const targetCount = 4;
+      const numbers = [];
+
+      for (let i = 0; i < totalCells; i++) {
+        const value = Math.floor(Math.random() * 100).toString().padStart(2, "0");
+        numbers.push(value);
       }
 
-      if (hackInProgress) return;
+      while (hackTargets.length < targetCount) {
+        const randomIndex = Math.floor(Math.random() * totalCells);
+        if (!hackTargets.includes(randomIndex)) {
+          hackTargets.push(randomIndex);
+        }
+      }
 
-      hackInProgress = true;
-      hackProgress = 0;
+      const grid = document.getElementById("hack-grid");
+      const status = document.getElementById("hack-status");
 
-      const result = document.getElementById("hack-result");
-      const bar = document.getElementById("hack-progress-bar");
+      if (!grid || !status) return;
 
-      if (result) result.textContent = "Injection de la clé USB en cours...";
-      if (bar) bar.style.width = "0%";
+      grid.innerHTML = "";
 
-      hackInterval = setInterval(() => {
-        hackProgress += 4;
+      numbers.forEach((num, index) => {
+        const cell = document.createElement("div");
+        cell.className = "hack-number";
+        cell.textContent = num;
+        cell.dataset.index = index;
 
-        const currentBar = document.getElementById("hack-progress-bar");
-        const currentResult = document.getElementById("hack-result");
-
-        if (currentBar) {
-          currentBar.style.width = `${hackProgress}%`;
+        if (hackTargets.includes(index)) {
+          cell.classList.add("target");
         }
 
-        if (currentResult) {
-          if (hackProgress < 30) {
-            currentResult.textContent = "Analyse du service de messagerie...";
-          } else if (hackProgress < 60) {
-            currentResult.textContent = "Contournement du verrou de session...";
-          } else if (hackProgress < 90) {
-            currentResult.textContent = "Injection de la clé de déblocage...";
-          } else {
-            currentResult.textContent = "Finalisation du déverrouillage...";
-          }
+        cell.addEventListener("click", () => handleHackNumberClick(cell, index));
+        grid.appendChild(cell);
+      });
+
+      status.textContent = "Sélectionnez les 4 anomalies rouges avant la fin du temps.";
+      updateHackTimerDisplay();
+
+      hackTimerInterval = setInterval(() => {
+        hackTimeLeftMs -= 100;
+
+        if (hackTimeLeftMs <= 0) {
+          hackTimeLeftMs = 0;
+          updateHackTimerDisplay();
+          stopHackGame();
+          failHackGame("Temps écoulé. Le contournement a échoué.");
+          return;
         }
 
-        if (hackProgress >= 100) {
-          clearInterval(hackInterval);
-          hackInterval = null;
-          hackInProgress = false;
-          messagingUnlocked = true;
-
-          const finalBar = document.getElementById("hack-progress-bar");
-          const finalResult = document.getElementById("hack-result");
-
-          if (finalBar) finalBar.style.width = "100%";
-          if (finalResult) finalResult.textContent = "Succès. La messagerie est désormais accessible.";
-
-          setTimeout(() => {
-            openWindow("messages");
-          }, 900);
-        }
-      }, 120);
+        updateHackTimerDisplay();
+      }, 100);
     }
 
-    function stopHackProcess() {
-      if (hackInterval) {
-        clearInterval(hackInterval);
-        hackInterval = null;
+    function handleHackNumberClick(cell, index) {
+      if (!hackGameRunning) return;
+
+      if (hackFound.includes(index)) return;
+
+      if (hackTargets.includes(index)) {
+        hackFound.push(index);
+        cell.classList.remove("target");
+        cell.classList.add("good");
+
+        if (hackFound.length === hackTargets.length) {
+          stopHackGame();
+          succeedHackGame();
+        }
+      } else {
+        cell.classList.add("bad");
+        failHackGame("Mauvaise sélection. La sécurité a rejeté l'injection.");
+      }
+    }
+
+    function succeedHackGame() {
+      messagingUnlocked = true;
+      const status = document.getElementById("hack-status");
+      if (status) {
+        status.textContent = "Contournement réussi. La messagerie est maintenant accessible.";
+        status.style.color = "#22c55e";
       }
 
-      hackInProgress = false;
+      setTimeout(() => {
+        openWindow("messages");
+      }, 900);
+    }
 
-      const result = document.getElementById("hack-result");
-      if (result && !messagingUnlocked) {
-        result.textContent = "Processus interrompu.";
+    function failHackGame(message) {
+      stopHackGame();
+
+      const status = document.getElementById("hack-status");
+      if (status) {
+        status.textContent = message;
+        status.style.color = "#ef4444";
       }
+    }
+
+    function resetHackNumbersGame() {
+      if (document.getElementById("hack-grid")) {
+        startHackNumbersGame();
+      }
+    }
+
+    function stopHackGame() {
+      hackGameRunning = false;
+
+      if (hackTimerInterval) {
+        clearInterval(hackTimerInterval);
+        hackTimerInterval = null;
+      }
+    }
+
+    function updateHackTimerDisplay() {
+      const timer = document.getElementById("hack-timer");
+      if (!timer) return;
+
+      const totalMs = Math.max(0, hackTimeLeftMs);
+      const seconds = Math.floor(totalMs / 1000);
+      const ms = totalMs % 1000;
+
+      const formattedSeconds = String(seconds).padStart(2, "0");
+      const formattedMs = String(ms).padStart(3, "0");
+
+      timer.textContent = `00:${formattedSeconds}:${formattedMs}`;
     }
 
     updateClock();
