@@ -9,6 +9,7 @@ const notesData = {
 - Dépôt temporaire : container 14 au port
 - Toujours changer de véhicule avant les remises importantes`
   },
+
   consignes: {
     title: "Consignes",
     date: "Dernière modification : 16/04/2026 - 18:41",
@@ -17,16 +18,29 @@ const notesData = {
 - Vérifier les plaques autour de l'entrepôt
 - Si présence inhabituelle : annuler la remise`
   },
+
   paiements: {
     title: "Paiements",
     date: "Dernière modification : 17/04/2026 - 23:03",
-    content: `- Client A : acompte reçu
-- Client B : reste 4 000€
+    content: `- Lucas Morel : payé
+- Kevin Dubois : reste 4 000€
 - Fournisseur : règlement après livraison complète
 - Prévoir liquide uniquement pour les gros montants`
+  },
+
+  materiels: {
+    title: "Matériels",
+    date: "Dernière modification : 18/04/2026 - 01:12",
+    content: `- 4 téléphones sécurisés
+- 2 tablettes chiffrées
+- 1 ordinateur portable dédié
+- 6 cartes SIM anonymes
+- 3 clés USB (dont une avec outils)
+
+⚠️ Rendre les tablettes et les GSM à la GN
+⚠️ Nettoyer le matériel après chaque opération`
   }
 };
-
 const data = {
   documents: {
     title: "Documents",
