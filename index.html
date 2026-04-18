@@ -282,6 +282,51 @@
       font-size: 14px;
     }
 
+    .status-box {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 18px;
+      margin-top: 12px;
+    }
+
+    .status-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #f8fafc;
+    }
+
+    .status-text {
+      color: #cbd5e1;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .status-btn {
+      padding: 12px 16px;
+      border: none;
+      border-radius: 10px;
+      background: #2563eb;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .usb-notice {
+      position: absolute;
+      right: 18px;
+      bottom: 64px;
+      z-index: 12;
+      background: rgba(15, 23, 42, 0.94);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #f8fafc;
+      padding: 12px 14px;
+      border-radius: 12px;
+      box-shadow: 0 14px 34px rgba(0,0,0,0.28);
+      font-size: 14px;
+    }
+
     /* =========================
        TASKBAR WINDOWS STYLE
     ========================= */
@@ -383,112 +428,53 @@
     }
 
     /* =========================
-       MINI JEU HACK
+       MINI APP HACK
     ========================= */
-    .hack-modal {
-      position: absolute;
-      inset: 0;
-      z-index: 20;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(2, 6, 23, 0.72);
-      backdrop-filter: blur(6px);
+    .hack-app {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px;
+      padding: 18px;
+      margin-top: 12px;
     }
 
-    .hack-box {
-      width: 100%;
-      max-width: 720px;
-      padding: 26px;
-      border-radius: 18px;
-      background: rgba(15, 23, 42, 0.96);
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: 0 24px 60px rgba(0,0,0,0.35);
-    }
-
-    .hack-title {
-      font-size: 24px;
-      font-weight: 700;
+    .hack-app h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
       color: #f8fafc;
-      margin-bottom: 8px;
-      letter-spacing: 0.5px;
     }
 
-    .hack-subtitle {
-      font-size: 14px;
+    .hack-app p {
       color: #cbd5e1;
-      margin-bottom: 22px;
-      line-height: 1.5;
-    }
-
-    .hack-row {
-      display: flex;
-      align-items: center;
-      gap: 14px;
+      line-height: 1.6;
       margin-bottom: 16px;
     }
 
-    .hack-track {
-      position: relative;
-      flex: 1;
+    .hack-progress {
+      width: 100%;
       height: 16px;
       border-radius: 999px;
       background: rgba(255,255,255,0.08);
       overflow: hidden;
       border: 1px solid rgba(255,255,255,0.06);
+      margin-bottom: 16px;
     }
 
-    .hack-zone {
-      position: absolute;
-      left: 42%;
-      width: 16%;
-      top: 0;
-      bottom: 0;
-      background: rgba(34, 197, 94, 0.85);
-    }
-
-    .hack-marker {
-      position: absolute;
-      top: -4px;
-      width: 10px;
-      height: 22px;
-      border-radius: 4px;
-      background: #60a5fa;
-      box-shadow: 0 0 12px rgba(96,165,250,0.45);
-    }
-
-    .hack-lock-btn {
-      min-width: 110px;
-      padding: 10px 12px;
-      border: none;
-      border-radius: 10px;
-      background: #1d4ed8;
-      color: white;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    .hack-lock-btn:disabled {
-      opacity: 0.45;
-      cursor: not-allowed;
-    }
-
-    .hack-message {
-      min-height: 24px;
-      margin-top: 10px;
-      margin-bottom: 18px;
-      color: #f8fafc;
-      font-size: 14px;
+    .hack-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #22c55e, #3b82f6);
+      transition: width 0.15s linear;
     }
 
     .hack-actions {
       display: flex;
       gap: 12px;
-      justify-content: flex-end;
+      flex-wrap: wrap;
     }
 
     .hack-main-btn,
-    .hack-close-btn {
+    .hack-secondary-btn {
       padding: 12px 16px;
       border: none;
       border-radius: 10px;
@@ -501,9 +487,16 @@
       color: white;
     }
 
-    .hack-close-btn {
+    .hack-secondary-btn {
       background: rgba(255,255,255,0.08);
       color: white;
+    }
+
+    .hack-result {
+      min-height: 24px;
+      margin-top: 14px;
+      font-size: 14px;
+      color: #f8fafc;
     }
 
     @media (max-width: 768px) {
@@ -536,17 +529,10 @@
         display: none;
       }
 
-      .hack-box {
-        width: calc(100vw - 24px);
-      }
-
-      .hack-row {
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      .hack-lock-btn {
-        width: 100%;
+      .usb-notice {
+        right: 10px;
+        left: 10px;
+        bottom: 60px;
       }
     }
   </style>
@@ -600,6 +586,15 @@
         <span class="emoji">📥</span>
         <span class="label">Téléchargements</span>
       </div>
+
+      <div id="usb-icon" class="desktop-icon hidden" onclick="openUsbDrive()">
+        <span class="emoji">💾</span>
+        <span class="label">Clé USB</span>
+      </div>
+    </div>
+
+    <div id="usb-notice" class="usb-notice hidden">
+      Clé USB détectée. Un nouveau support est disponible sur le bureau.
     </div>
 
     <div id="app-window" class="window hidden">
@@ -608,46 +603,6 @@
         <button class="close-btn" onclick="closeWindow()">X</button>
       </div>
       <div class="window-content" id="window-content"></div>
-    </div>
-
-    <div id="hack-modal" class="hack-modal hidden">
-      <div class="hack-box">
-        <div class="hack-title">ACCÈS MESSAGERIE SÉCURISÉ</div>
-        <div class="hack-subtitle">
-          Contournement requis. Stabilisez les 3 signaux dans la zone autorisée.
-        </div>
-
-        <div class="hack-row">
-          <div class="hack-track">
-            <div class="hack-zone"></div>
-            <div class="hack-marker" id="marker-1"></div>
-          </div>
-          <button class="hack-lock-btn" onclick="lockMarker(0)">Verrouiller</button>
-        </div>
-
-        <div class="hack-row">
-          <div class="hack-track">
-            <div class="hack-zone"></div>
-            <div class="hack-marker" id="marker-2"></div>
-          </div>
-          <button class="hack-lock-btn" onclick="lockMarker(1)">Verrouiller</button>
-        </div>
-
-        <div class="hack-row">
-          <div class="hack-track">
-            <div class="hack-zone"></div>
-            <div class="hack-marker" id="marker-3"></div>
-          </div>
-          <button class="hack-lock-btn" onclick="lockMarker(2)">Verrouiller</button>
-        </div>
-
-        <div id="hack-message" class="hack-message"></div>
-
-        <div class="hack-actions">
-          <button class="hack-main-btn" onclick="startHackGame()">Lancer le contournement</button>
-          <button class="hack-close-btn" onclick="closeHackModal()">Fermer</button>
-        </div>
-      </div>
     </div>
 
     <div class="taskbar">
@@ -664,7 +619,7 @@
         <button class="taskbar-icon" type="button" title="Messagerie" onclick="openMessagingAccess()">💬</button>
         <button class="taskbar-icon" type="button" title="Navigateur" onclick="openWindow('browser')">🌐</button>
         <button class="taskbar-icon" type="button" title="Téléchargements" onclick="openWindow('downloads')">⬇️</button>
-        <button class="taskbar-icon" type="button" title="Spotify">🎵</button>
+        <button id="taskbar-usb" class="taskbar-icon hidden" type="button" title="Clé USB" onclick="openUsbDrive()">💾</button>
       </div>
 
       <div class="taskbar-right">
@@ -763,31 +718,27 @@ Supprimer les traces après la remise.
     const appWindow = document.getElementById("app-window");
     const windowTitle = document.getElementById("window-title");
     const windowContent = document.getElementById("window-content");
-
-    const hackModal = document.getElementById("hack-modal");
-    const hackMessage = document.getElementById("hack-message");
-    const hackMarkers = [
-      document.getElementById("marker-1"),
-      document.getElementById("marker-2"),
-      document.getElementById("marker-3")
-    ];
-    const hackButtons = Array.from(document.querySelectorAll(".hack-lock-btn"));
+    const usbIcon = document.getElementById("usb-icon");
+    const usbNotice = document.getElementById("usb-notice");
+    const taskbarUsb = document.getElementById("taskbar-usb");
 
     let messagingUnlocked = false;
-    let hackRunning = false;
-    let hackAnimationId = null;
-
-    const hackState = [
-      { pos: 10, speed: 1.9, locked: false },
-      { pos: 55, speed: 2.5, locked: false },
-      { pos: 80, speed: 1.6, locked: false }
-    ];
+    let usbInserted = false;
+    let hackInProgress = false;
+    let hackProgress = 0;
+    let hackInterval = null;
 
     loginButton.addEventListener("click", tryLogin);
 
     passwordInput.addEventListener("keydown", function(event) {
       if (event.key === "Enter") {
         tryLogin();
+      }
+    });
+
+    document.addEventListener("keydown", function(event) {
+      if (loginScreen.classList.contains("hidden") && !usbInserted && (event.key === "u" || event.key === "U")) {
+        insertUsb();
       }
     });
 
@@ -814,6 +765,7 @@ Supprimer les traces après la remise.
 
     function closeWindow() {
       appWindow.classList.add("hidden");
+      stopHackProcess();
     }
 
     function showFile(fileKey) {
@@ -840,110 +792,158 @@ Supprimer les traces après la remise.
         return;
       }
 
-      hackModal.classList.remove("hidden");
-      hackMessage.textContent = "Accès refusé. Contournement de sécurité requis.";
-      resetHackVisuals();
+      windowTitle.textContent = "Messagerie";
+      windowContent.innerHTML = `
+        <div class="status-box">
+          <div class="status-title">ACCÈS MESSAGERIE SÉCURISÉ</div>
+          <div class="status-text">
+            Cette messagerie est protégée par une couche de sécurité renforcée.
+            L'entrée d'un mot de passe est requise, mais aucun accès direct n'est autorisé depuis cette session.
+            Utilisez un outil externe pour contourner la protection.
+          </div>
+          <button class="status-btn" onclick="fakePasswordPrompt()">Entrer le mot de passe</button>
+          <div id="secure-access-feedback" style="margin-top:14px;color:#cbd5e1;font-size:14px;"></div>
+        </div>
+      `;
+      appWindow.classList.remove("hidden");
     }
 
-    function closeHackModal() {
-      hackModal.classList.add("hidden");
-      stopHackAnimation();
-      hackRunning = false;
+    function fakePasswordPrompt() {
+      const feedback = document.getElementById("secure-access-feedback");
+      if (feedback) {
+        feedback.textContent = "Accès refusé. Aucun mot de passe utilisateur valide n'est disponible sur cette session.";
+      }
     }
 
-    function resetHackVisuals() {
-      stopHackAnimation();
-      hackRunning = false;
+    function insertUsb() {
+      usbInserted = true;
+      usbIcon.classList.remove("hidden");
+      taskbarUsb.classList.remove("hidden");
+      usbNotice.classList.remove("hidden");
 
-      hackState[0] = { pos: 10, speed: 1.9, locked: false };
-      hackState[1] = { pos: 55, speed: 2.5, locked: false };
-      hackState[2] = { pos: 80, speed: 1.6, locked: false };
-
-      hackButtons.forEach(btn => btn.disabled = true);
-      drawHackMarkers();
+      setTimeout(() => {
+        usbNotice.classList.add("hidden");
+      }, 3500);
     }
 
-    function startHackGame() {
-      hackRunning = true;
-      hackMessage.textContent = "Stabilisez les 3 signaux dans la zone verte.";
-
-      hackState[0] = { pos: 10, speed: 1.9, locked: false };
-      hackState[1] = { pos: 55, speed: 2.5, locked: false };
-      hackState[2] = { pos: 80, speed: 1.6, locked: false };
-
-      hackButtons.forEach(btn => btn.disabled = false);
-
-      animateHack();
+    function openUsbDrive() {
+      windowTitle.textContent = "Clé USB";
+      windowContent.innerHTML = `
+        <p>Support externe détecté.</p>
+        <div class="folder-grid">
+          <div class="folder-item" onclick="openHackApp()">
+            <span class="emoji">🧩</span>
+            <span class="name">messenger_bypass.exe</span>
+          </div>
+        </div>
+      `;
+      appWindow.classList.remove("hidden");
     }
 
-    function animateHack() {
-      if (!hackRunning) return;
+    function openHackApp() {
+      windowTitle.textContent = "messenger_bypass.exe";
+      windowContent.innerHTML = `
+        <div class="hack-app">
+          <h3>Module de contournement — Messagerie sécurisée</h3>
+          <p>
+            Cet utilitaire permet d'injecter une clé de déverrouillage dans le service de messagerie.
+            Lancez le processus et attendez la fin du contournement.
+          </p>
 
-      hackState.forEach((item, index) => {
-        if (!item.locked) {
-          item.pos += item.speed;
+          <div class="hack-progress">
+            <div id="hack-progress-bar" class="hack-progress-bar"></div>
+          </div>
 
-          if (item.pos <= 0 || item.pos >= 96) {
-            item.speed *= -1;
-            item.pos += item.speed;
+          <div class="hack-actions">
+            <button class="hack-main-btn" onclick="startHackProcess()">Lancer le hack</button>
+            <button class="hack-secondary-btn" onclick="stopHackProcess()">Arrêter</button>
+          </div>
+
+          <div id="hack-result" class="hack-result">
+            En attente d'exécution.
+          </div>
+        </div>
+      `;
+      appWindow.classList.remove("hidden");
+    }
+
+    function startHackProcess() {
+      if (messagingUnlocked) {
+        const result = document.getElementById("hack-result");
+        const bar = document.getElementById("hack-progress-bar");
+        if (result) result.textContent = "Messagerie déjà déverrouillée.";
+        if (bar) bar.style.width = "100%";
+        return;
+      }
+
+      if (hackInProgress) return;
+
+      hackInProgress = true;
+      hackProgress = 0;
+
+      const result = document.getElementById("hack-result");
+      const bar = document.getElementById("hack-progress-bar");
+
+      if (result) result.textContent = "Injection de la clé USB en cours...";
+      if (bar) bar.style.width = "0%";
+
+      hackInterval = setInterval(() => {
+        hackProgress += 4;
+
+        const currentBar = document.getElementById("hack-progress-bar");
+        const currentResult = document.getElementById("hack-result");
+
+        if (currentBar) {
+          currentBar.style.width = `${hackProgress}%`;
+        }
+
+        if (currentResult) {
+          if (hackProgress < 30) {
+            currentResult.textContent = "Analyse du service de messagerie...";
+          } else if (hackProgress < 60) {
+            currentResult.textContent = "Contournement du verrou de session...";
+          } else if (hackProgress < 90) {
+            currentResult.textContent = "Injection de la clé de déblocage...";
+          } else {
+            currentResult.textContent = "Finalisation du déverrouillage...";
           }
         }
 
-        hackMarkers[index].style.left = `${item.pos}%`;
-      });
+        if (hackProgress >= 100) {
+          clearInterval(hackInterval);
+          hackInterval = null;
+          hackInProgress = false;
+          messagingUnlocked = true;
 
-      hackAnimationId = requestAnimationFrame(animateHack);
+          const finalBar = document.getElementById("hack-progress-bar");
+          const finalResult = document.getElementById("hack-result");
+
+          if (finalBar) finalBar.style.width = "100%";
+          if (finalResult) finalResult.textContent = "Succès. La messagerie est désormais accessible.";
+
+          setTimeout(() => {
+            openWindow("messages");
+          }, 900);
+        }
+      }, 120);
     }
 
-    function stopHackAnimation() {
-      if (hackAnimationId) {
-        cancelAnimationFrame(hackAnimationId);
-        hackAnimationId = null;
+    function stopHackProcess() {
+      if (hackInterval) {
+        clearInterval(hackInterval);
+        hackInterval = null;
       }
-    }
 
-    function drawHackMarkers() {
-      hackState.forEach((item, index) => {
-        hackMarkers[index].style.left = `${item.pos}%`;
-      });
-    }
+      hackInProgress = false;
 
-    function lockMarker(index) {
-      if (!hackRunning || hackState[index].locked) return;
-
-      hackState[index].locked = true;
-      hackButtons[index].disabled = true;
-
-      const allLocked = hackState.every(item => item.locked);
-
-      if (allLocked) {
-        stopHackAnimation();
-        evaluateHack();
-      }
-    }
-
-    function evaluateHack() {
-      const success = hackState.every(item => item.pos >= 42 && item.pos <= 58);
-
-      if (success) {
-        messagingUnlocked = true;
-        hackRunning = false;
-        hackMessage.textContent = "Contournement réussi. Accès messagerie accordé.";
-
-        setTimeout(() => {
-          closeHackModal();
-          openWindow("messages");
-        }, 900);
-      } else {
-        hackRunning = false;
-        hackMessage.textContent = "Échec du contournement. Relancez la procédure.";
-        hackButtons.forEach(btn => btn.disabled = true);
+      const result = document.getElementById("hack-result");
+      if (result && !messagingUnlocked) {
+        result.textContent = "Processus interrompu.";
       }
     }
 
     updateClock();
     setInterval(updateClock, 1000);
-    drawHackMarkers();
   </script>
 </body>
 </html>
