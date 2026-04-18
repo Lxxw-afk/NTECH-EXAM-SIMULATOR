@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Poste informatique saisi.</title>
+  <title>Poste informatique saisi</title>
 
   <style>
     * {
@@ -160,37 +160,9 @@
       pointer-events: none;
     }
 
-    .topbar {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 42px;
-      background: rgba(10, 15, 25, 0.55);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 16px;
-      backdrop-filter: blur(6px);
-      z-index: 2;
-    }
-
-    .topbar .title {
-      font-size: 14px;
-      color: #e2e8f0;
-      font-weight: bold;
-      letter-spacing: 0.5px;
-    }
-
-    .topbar .session {
-      font-size: 13px;
-      color: #cbd5e1;
-    }
-
     .desktop-icons {
       position: absolute;
-      top: 70px;
+      top: 28px;
       left: 28px;
       display: flex;
       flex-direction: column;
@@ -311,7 +283,7 @@
     }
 
     /* =========================
-       TASKBAR WINDOWS 11 STYLE
+       TASKBAR WINDOWS STYLE
     ========================= */
     .taskbar {
       position: absolute;
@@ -410,6 +382,130 @@
       font-size: 14px;
     }
 
+    /* =========================
+       MINI JEU HACK
+    ========================= */
+    .hack-modal {
+      position: absolute;
+      inset: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(2, 6, 23, 0.72);
+      backdrop-filter: blur(6px);
+    }
+
+    .hack-box {
+      width: 100%;
+      max-width: 720px;
+      padding: 26px;
+      border-radius: 18px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+    }
+
+    .hack-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #f8fafc;
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+    }
+
+    .hack-subtitle {
+      font-size: 14px;
+      color: #cbd5e1;
+      margin-bottom: 22px;
+      line-height: 1.5;
+    }
+
+    .hack-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .hack-track {
+      position: relative;
+      flex: 1;
+      height: 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .hack-zone {
+      position: absolute;
+      left: 42%;
+      width: 16%;
+      top: 0;
+      bottom: 0;
+      background: rgba(34, 197, 94, 0.85);
+    }
+
+    .hack-marker {
+      position: absolute;
+      top: -4px;
+      width: 10px;
+      height: 22px;
+      border-radius: 4px;
+      background: #60a5fa;
+      box-shadow: 0 0 12px rgba(96,165,250,0.45);
+    }
+
+    .hack-lock-btn {
+      min-width: 110px;
+      padding: 10px 12px;
+      border: none;
+      border-radius: 10px;
+      background: #1d4ed8;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .hack-lock-btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .hack-message {
+      min-height: 24px;
+      margin-top: 10px;
+      margin-bottom: 18px;
+      color: #f8fafc;
+      font-size: 14px;
+    }
+
+    .hack-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+    }
+
+    .hack-main-btn,
+    .hack-close-btn {
+      padding: 12px 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .hack-main-btn {
+      background: #2563eb;
+      color: white;
+    }
+
+    .hack-close-btn {
+      background: rgba(255,255,255,0.08);
+      color: white;
+    }
+
     @media (max-width: 768px) {
       .login-box {
         width: 90%;
@@ -435,12 +531,22 @@
         padding: 0 8px;
       }
 
-      .taskbar-left {
+      .taskbar-left,
+      .taskbar-right {
         display: none;
       }
 
-      .taskbar-right {
-        display: none;
+      .hack-box {
+        width: calc(100vw - 24px);
+      }
+
+      .hack-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .hack-lock-btn {
+        width: 100%;
       }
     }
   </style>
@@ -480,7 +586,7 @@
         <span class="label">Documents</span>
       </div>
 
-      <div class="desktop-icon" onclick="openWindow('messages')">
+      <div class="desktop-icon" onclick="openMessagingAccess()">
         <span class="emoji">💬</span>
         <span class="label">Messagerie</span>
       </div>
@@ -504,6 +610,46 @@
       <div class="window-content" id="window-content"></div>
     </div>
 
+    <div id="hack-modal" class="hack-modal hidden">
+      <div class="hack-box">
+        <div class="hack-title">ACCÈS MESSAGERIE SÉCURISÉ</div>
+        <div class="hack-subtitle">
+          Contournement requis. Stabilisez les 3 signaux dans la zone autorisée.
+        </div>
+
+        <div class="hack-row">
+          <div class="hack-track">
+            <div class="hack-zone"></div>
+            <div class="hack-marker" id="marker-1"></div>
+          </div>
+          <button class="hack-lock-btn" onclick="lockMarker(0)">Verrouiller</button>
+        </div>
+
+        <div class="hack-row">
+          <div class="hack-track">
+            <div class="hack-zone"></div>
+            <div class="hack-marker" id="marker-2"></div>
+          </div>
+          <button class="hack-lock-btn" onclick="lockMarker(1)">Verrouiller</button>
+        </div>
+
+        <div class="hack-row">
+          <div class="hack-track">
+            <div class="hack-zone"></div>
+            <div class="hack-marker" id="marker-3"></div>
+          </div>
+          <button class="hack-lock-btn" onclick="lockMarker(2)">Verrouiller</button>
+        </div>
+
+        <div id="hack-message" class="hack-message"></div>
+
+        <div class="hack-actions">
+          <button class="hack-main-btn" onclick="startHackGame()">Lancer le contournement</button>
+          <button class="hack-close-btn" onclick="closeHackModal()">Fermer</button>
+        </div>
+      </div>
+    </div>
+
     <div class="taskbar">
       <div class="taskbar-left"></div>
 
@@ -515,7 +661,7 @@
         </button>
 
         <button class="taskbar-icon active" type="button" title="Explorateur" onclick="openWindow('documents')">📁</button>
-        <button class="taskbar-icon" type="button" title="Messagerie" onclick="openWindow('messages')">💬</button>
+        <button class="taskbar-icon" type="button" title="Messagerie" onclick="openMessagingAccess()">💬</button>
         <button class="taskbar-icon" type="button" title="Navigateur" onclick="openWindow('browser')">🌐</button>
         <button class="taskbar-icon" type="button" title="Téléchargements" onclick="openWindow('downloads')">⬇️</button>
         <button class="taskbar-icon" type="button" title="Spotify">🎵</button>
@@ -618,6 +764,25 @@ Supprimer les traces après la remise.
     const windowTitle = document.getElementById("window-title");
     const windowContent = document.getElementById("window-content");
 
+    const hackModal = document.getElementById("hack-modal");
+    const hackMessage = document.getElementById("hack-message");
+    const hackMarkers = [
+      document.getElementById("marker-1"),
+      document.getElementById("marker-2"),
+      document.getElementById("marker-3")
+    ];
+    const hackButtons = Array.from(document.querySelectorAll(".hack-lock-btn"));
+
+    let messagingUnlocked = false;
+    let hackRunning = false;
+    let hackAnimationId = null;
+
+    const hackState = [
+      { pos: 10, speed: 1.9, locked: false },
+      { pos: 55, speed: 2.5, locked: false },
+      { pos: 80, speed: 1.6, locked: false }
+    ];
+
     loginButton.addEventListener("click", tryLogin);
 
     passwordInput.addEventListener("keydown", function(event) {
@@ -669,8 +834,116 @@ Supprimer les traces après la remise.
       document.getElementById("clock").innerHTML = `${time}<br>${date}`;
     }
 
+    function openMessagingAccess() {
+      if (messagingUnlocked) {
+        openWindow("messages");
+        return;
+      }
+
+      hackModal.classList.remove("hidden");
+      hackMessage.textContent = "Accès refusé. Contournement de sécurité requis.";
+      resetHackVisuals();
+    }
+
+    function closeHackModal() {
+      hackModal.classList.add("hidden");
+      stopHackAnimation();
+      hackRunning = false;
+    }
+
+    function resetHackVisuals() {
+      stopHackAnimation();
+      hackRunning = false;
+
+      hackState[0] = { pos: 10, speed: 1.9, locked: false };
+      hackState[1] = { pos: 55, speed: 2.5, locked: false };
+      hackState[2] = { pos: 80, speed: 1.6, locked: false };
+
+      hackButtons.forEach(btn => btn.disabled = true);
+      drawHackMarkers();
+    }
+
+    function startHackGame() {
+      hackRunning = true;
+      hackMessage.textContent = "Stabilisez les 3 signaux dans la zone verte.";
+
+      hackState[0] = { pos: 10, speed: 1.9, locked: false };
+      hackState[1] = { pos: 55, speed: 2.5, locked: false };
+      hackState[2] = { pos: 80, speed: 1.6, locked: false };
+
+      hackButtons.forEach(btn => btn.disabled = false);
+
+      animateHack();
+    }
+
+    function animateHack() {
+      if (!hackRunning) return;
+
+      hackState.forEach((item, index) => {
+        if (!item.locked) {
+          item.pos += item.speed;
+
+          if (item.pos <= 0 || item.pos >= 96) {
+            item.speed *= -1;
+            item.pos += item.speed;
+          }
+        }
+
+        hackMarkers[index].style.left = `${item.pos}%`;
+      });
+
+      hackAnimationId = requestAnimationFrame(animateHack);
+    }
+
+    function stopHackAnimation() {
+      if (hackAnimationId) {
+        cancelAnimationFrame(hackAnimationId);
+        hackAnimationId = null;
+      }
+    }
+
+    function drawHackMarkers() {
+      hackState.forEach((item, index) => {
+        hackMarkers[index].style.left = `${item.pos}%`;
+      });
+    }
+
+    function lockMarker(index) {
+      if (!hackRunning || hackState[index].locked) return;
+
+      hackState[index].locked = true;
+      hackButtons[index].disabled = true;
+
+      const allLocked = hackState.every(item => item.locked);
+
+      if (allLocked) {
+        stopHackAnimation();
+        evaluateHack();
+      }
+    }
+
+    function evaluateHack() {
+      const success = hackState.every(item => item.pos >= 42 && item.pos <= 58);
+
+      if (success) {
+        messagingUnlocked = true;
+        hackRunning = false;
+        hackMessage.textContent = "Contournement réussi. Accès messagerie accordé.";
+
+        setTimeout(() => {
+          closeHackModal();
+          openWindow("messages");
+        }, 900);
+      } else {
+        hackRunning = false;
+        hackMessage.textContent = "Échec du contournement. Relancez la procédure.";
+        hackButtons.forEach(btn => btn.disabled = true);
+      }
+    }
+
     updateClock();
     setInterval(updateClock, 1000);
+    drawHackMarkers();
   </script>
 </body>
 </html>
