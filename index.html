@@ -24,85 +24,168 @@
       display: none !important;
     }
 
+    /* =========================
+       ÉCRAN DE CONNEXION
+    ========================= */
     #login-screen {
       width: 100%;
       height: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
-      background:
-        linear-gradient(135deg, rgba(11,18,32,0.92), rgba(20,30,48,0.92)),
-        url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      position: relative;
+      background: url('assets/login-bg.png') center/cover no-repeat;
     }
 
-    .login-box {
-      width: 420px;
-      padding: 32px;
-      border-radius: 18px;
-      background: rgba(15, 23, 42, 0.88);
-      border: 1px solid rgba(255,255,255,0.08);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    #login-screen::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(4, 14, 35, 0.62);
+      backdrop-filter: blur(2px);
+    }
+
+    .login-wrapper {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 640px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       text-align: center;
+      padding: 24px;
     }
 
-    .login-box h1 {
-      font-size: 28px;
-      margin-bottom: 10px;
+    .login-title {
+      font-size: 34px;
+      font-weight: 700;
       letter-spacing: 1px;
+      margin-bottom: 34px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.96);
+      text-shadow: 0 4px 18px rgba(0,0,0,0.35);
     }
 
-    .login-box p {
-      color: #cbd5e1;
-      font-size: 14px;
-      margin-bottom: 24px;
-      line-height: 1.5;
+    .profile-img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 18px;
+      border: 2px solid rgba(105, 164, 255, 0.9);
+      box-shadow: 0 0 26px rgba(59, 130, 246, 0.45);
     }
 
-    .login-box input {
+    .session-name {
+      font-size: 30px;
+      font-weight: 600;
+      margin-bottom: 28px;
+      color: rgba(255,255,255,0.96);
+      text-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    }
+
+    .password-box {
       width: 100%;
-      padding: 14px 16px;
-      border-radius: 10px;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.05);
-      color: white;
-      font-size: 15px;
-      outline: none;
-      margin-bottom: 14px;
+      max-width: 470px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 0 18px;
+      border-radius: 14px;
+      background: rgba(15, 24, 52, 0.78);
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
     }
 
-    .login-box button {
+    .lock-icon {
+      font-size: 26px;
+      opacity: 0.9;
+    }
+
+    #password-input {
       width: 100%;
-      padding: 14px;
       border: none;
-      border-radius: 10px;
-      background: #2563eb;
+      outline: none;
+      background: transparent;
       color: white;
-      font-size: 15px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.2s ease;
+      font-size: 18px;
     }
 
-    .login-box button:hover {
+    #password-input::placeholder {
+      color: rgba(255,255,255,0.6);
+    }
+
+    .help-text {
+      margin-top: 18px;
+      font-size: 18px;
+      color: rgba(255,255,255,0.82);
+    }
+
+    #login-button {
+      width: 100%;
+      max-width: 470px;
+      height: 58px;
+      margin-top: 22px;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: 700;
+      color: white;
+      background: linear-gradient(90deg, #2f5df0, #3268ff);
+      box-shadow: 0 10px 24px rgba(28, 88, 255, 0.25);
+      transition: transform 0.15s ease, filter 0.15s ease;
+    }
+
+    #login-button:hover {
       transform: translateY(-1px);
-      background: #1d4ed8;
+      filter: brightness(1.06);
     }
 
     #error-message {
-      min-height: 20px;
-      margin-top: 12px;
-      color: #f87171;
-      font-size: 14px;
+      min-height: 24px;
+      margin-top: 14px;
+      font-size: 15px;
+      color: #ff8e8e;
     }
 
+    .login-links {
+      margin-top: 32px;
+      font-size: 18px;
+      color: rgba(255,255,255,0.78);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .login-links span {
+      color: rgba(255,255,255,0.78);
+    }
+
+    .login-links a {
+      color: #7fb0ff;
+      text-decoration: none;
+    }
+
+    .login-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* =========================
+       BUREAU
+    ========================= */
     #desktop-screen {
       width: 100%;
       height: 100%;
       position: relative;
       background:
         linear-gradient(rgba(15,23,42,0.2), rgba(15,23,42,0.2)),
-        url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+        url('assets/desktop-bg.png') center/cover no-repeat;
     }
 
     .desktop-overlay {
@@ -291,19 +374,57 @@
       font-size: 13px;
       color: #cbd5e1;
     }
+
+    @media (max-width: 900px) {
+      .login-title {
+        font-size: 26px;
+      }
+
+      .session-name {
+        font-size: 24px;
+      }
+
+      .profile-img {
+        width: 120px;
+        height: 120px;
+      }
+
+      .password-box,
+      #login-button {
+        max-width: 90%;
+      }
+
+      .login-links,
+      .help-text {
+        font-size: 16px;
+      }
+    }
   </style>
 </head>
 <body>
   <section id="login-screen">
-    <div class="login-box">
-      <h1>POSTE INFORMATIQUE SAISI</h1>
-      <p>
-        Veuillez saisir le mot de passe communiqué dans le dossier d'enquête<br>
-        afin d'accéder à la session utilisateur.
-      </p>
-      <input type="password" id="password-input" placeholder="Mot de passe" />
+    <div class="login-wrapper">
+      <h1 class="login-title">POSTE INFORMATIQUE SAISI</h1>
+
+      <img src="assets/profile.png" alt="Photo de profil Ethan.morel" class="profile-img" />
+
+      <div class="session-name">Ethan.morel</div>
+
+      <div class="password-box">
+        <span class="lock-icon">🔒</span>
+        <input type="password" id="password-input" placeholder="Entrez le mot de passe" />
+      </div>
+
+      <div class="help-text">J'ai oublié mon mot de passe</div>
+
       <button id="login-button">Se connecter</button>
       <div id="error-message"></div>
+
+      <div class="login-links">
+        <span>J'ai oublié mon mot de passe</span>
+        <span>|</span>
+        <a href="#">Options de connexion</a>
+      </div>
     </div>
   </section>
 
@@ -312,7 +433,7 @@
 
     <div class="topbar">
       <div class="title">SESSION UTILISATEUR — ORDINATEUR PERSONNEL</div>
-      <div class="session">Utilisateur : ethan.morel</div>
+      <div class="session">Utilisateur : Ethan.morel</div>
     </div>
 
     <div class="desktop-icons">
