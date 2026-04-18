@@ -25,6 +25,10 @@
       display: none !important;
     }
 
+    button {
+      font: inherit;
+    }
+
     /* =========================
        ÉCRAN DE CONNEXION
     ========================= */
@@ -306,35 +310,104 @@
       font-size: 14px;
     }
 
+    /* =========================
+       TASKBAR WINDOWS 11 STYLE
+    ========================= */
     .taskbar {
       position: absolute;
       left: 0;
       right: 0;
       bottom: 0;
-      height: 54px;
-      background: rgba(10, 15, 25, 0.55);
+      height: 52px;
+      background: rgba(8, 12, 20, 0.72);
       border-top: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(12px);
+      z-index: 3;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 0 14px;
+    }
+
+    .taskbar-left {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding: 0 16px;
-      z-index: 3;
-      backdrop-filter: blur(8px);
+      min-width: 0;
     }
 
-    .start-btn {
-      background: rgba(37, 99, 235, 0.95);
+    .taskbar-center {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .taskbar-right {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 14px;
+      color: #f1f5f9;
+      font-size: 12px;
+      min-width: 0;
+    }
+
+    .taskbar-icon {
+      width: 38px;
+      height: 38px;
       border: none;
-      color: white;
-      padding: 10px 16px;
+      background: transparent;
       border-radius: 10px;
-      font-weight: bold;
+      color: white;
+      font-size: 19px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
+      position: relative;
+      transition: background 0.15s ease, transform 0.15s ease;
     }
 
-    .clock {
-      font-size: 13px;
-      color: #cbd5e1;
+    .taskbar-icon:hover {
+      background: rgba(255,255,255,0.12);
+    }
+
+    .taskbar-icon.active::after {
+      content: "";
+      position: absolute;
+      bottom: 4px;
+      width: 14px;
+      height: 3px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.92);
+    }
+
+    .windows-logo {
+      width: 16px;
+      height: 16px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+    }
+
+    .windows-logo span {
+      display: block;
+      background: #7dd3fc;
+      border-radius: 1px;
+    }
+
+    .taskbar-time {
+      text-align: right;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    .taskbar-tray {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #e2e8f0;
+      font-size: 14px;
     }
 
     @media (max-width: 768px) {
@@ -355,6 +428,19 @@
         left: 20px;
         top: 90px;
         width: calc(100vw - 40px);
+      }
+
+      .taskbar {
+        grid-template-columns: 1fr;
+        padding: 0 8px;
+      }
+
+      .taskbar-left {
+        display: none;
+      }
+
+      .taskbar-right {
+        display: none;
       }
     }
   </style>
@@ -388,11 +474,6 @@
   <section id="desktop-screen" class="hidden">
     <div class="desktop-overlay"></div>
 
-    <div class="topbar">
-      <div class="title">SESSION UTILISATEUR — ORDINATEUR PERSONNEL</div>
-      <div class="session">Utilisateur : Ethan.morel</div>
-    </div>
-
     <div class="desktop-icons">
       <div class="desktop-icon" onclick="openWindow('documents')">
         <span class="emoji">📁</span>
@@ -424,8 +505,30 @@
     </div>
 
     <div class="taskbar">
-      <button class="start-btn">NTECH OS</button>
-      <div class="clock" id="clock"></div>
+      <div class="taskbar-left"></div>
+
+      <div class="taskbar-center">
+        <button class="taskbar-icon" type="button" title="Démarrer">
+          <span class="windows-logo">
+            <span></span><span></span><span></span><span></span>
+          </span>
+        </button>
+
+        <button class="taskbar-icon active" type="button" title="Explorateur" onclick="openWindow('documents')">📁</button>
+        <button class="taskbar-icon" type="button" title="Messagerie" onclick="openWindow('messages')">💬</button>
+        <button class="taskbar-icon" type="button" title="Navigateur" onclick="openWindow('browser')">🌐</button>
+        <button class="taskbar-icon" type="button" title="Téléchargements" onclick="openWindow('downloads')">⬇️</button>
+        <button class="taskbar-icon" type="button" title="Spotify">🎵</button>
+      </div>
+
+      <div class="taskbar-right">
+        <div class="taskbar-tray">
+          <span title="Réseau">📶</span>
+          <span title="Écran">🖥️</span>
+          <span title="Volume">🔊</span>
+        </div>
+        <div class="taskbar-time" id="clock"></div>
+      </div>
     </div>
   </section>
 
@@ -558,14 +661,12 @@ Supprimer les traces après la remise.
 
     function updateClock() {
       const now = new Date();
-      const formatted = now.toLocaleString("fr-FR", {
+      const time = now.toLocaleTimeString("fr-FR", {
         hour: "2-digit",
-        minute: "2-digit",
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric"
+        minute: "2-digit"
       });
-      document.getElementById("clock").textContent = formatted;
+      const date = now.toLocaleDateString("fr-FR");
+      document.getElementById("clock").innerHTML = `${time}<br>${date}`;
     }
 
     updateClock();
