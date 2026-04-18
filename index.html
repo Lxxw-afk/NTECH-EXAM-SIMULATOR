@@ -527,6 +527,30 @@
       text-shadow: 0 0 12px rgba(255,59,48,0.18);
     }
 
+    .hack-targets {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 18px;
+      margin-top: 22px;
+      flex-wrap: wrap;
+    }
+
+    .hack-target {
+      font-family: "Courier New", Consolas, monospace;
+      color: #ff3b30;
+      font-size: 38px;
+      line-height: 1;
+      min-width: 52px;
+      text-align: center;
+      text-shadow: 0 0 8px rgba(255,59,48,0.2);
+    }
+
+    .hack-target.found {
+      color: #22c55e;
+      text-shadow: 0 0 8px rgba(34,197,94,0.2);
+    }
+
     .hack-timer {
       text-align: center;
       color: #16d35f;
@@ -561,11 +585,6 @@
 
     .hack-number:hover {
       transform: scale(1.06);
-    }
-
-    .hack-number.target {
-      color: #ff3b30;
-      text-shadow: 0 0 8px rgba(255,59,48,0.2);
     }
 
     .hack-number.good {
@@ -949,6 +968,11 @@
         font-size: 28px;
       }
 
+      .hack-target {
+        font-size: 28px;
+        min-width: 40px;
+      }
+
       .hack-timer {
         font-size: 22px;
       }
@@ -1271,8 +1295,8 @@ Supprimer les traces après la remise.
     let messagingUnlocked = false;
     let usbInserted = false;
 
-    let hackTargets = [];
-    let hackFound = [];
+    let hackTargetValues = [];
+    let hackFoundValues = [];
     let hackTimerInterval = null;
     let hackTimeLeftMs = 49224;
     let hackGameRunning = false;
@@ -1413,6 +1437,9 @@ Supprimer les traces après la remise.
             </div>
 
             <div class="hack-ip" id="hack-ip">23.03.29.92</div>
+
+            <div class="hack-targets" id="hack-targets"></div>
+
             <div class="hack-timer" id="hack-timer">00:49:224</div>
 
             <div class="hack-grid" id="hack-grid"></div>
@@ -1420,7 +1447,7 @@ Supprimer les traces après la remise.
             <div class="hack-footer-line"></div>
 
             <div class="hack-status" id="hack-status">
-              Sélectionnez les 4 anomalies rouges avant la fin du temps.
+              Retrouvez dans la grille les 4 codes rouges affichés ci-dessus.
             </div>
 
             <div class="hack-toolbar">
@@ -1437,30 +1464,42 @@ Supprimer les traces après la remise.
     function startHackNumbersGame() {
       stopHackGame();
       hackGameRunning = true;
-      hackFound = [];
-      hackTargets = [];
+      hackFoundValues = [];
+      hackTargetValues = [];
       hackTimeLeftMs = 49224;
 
       const totalCells = 80;
       const targetCount = 4;
       const numbers = [];
+      const usedIndexes = new Set();
 
       for (let i = 0; i < totalCells; i++) {
         const value = Math.floor(Math.random() * 100).toString().padStart(2, "0");
         numbers.push(value);
       }
 
-      while (hackTargets.length < targetCount) {
+      while (hackTargetValues.length < targetCount) {
         const randomIndex = Math.floor(Math.random() * totalCells);
-        if (!hackTargets.includes(randomIndex)) {
-          hackTargets.push(randomIndex);
+        if (!usedIndexes.has(randomIndex)) {
+          usedIndexes.add(randomIndex);
+          hackTargetValues.push(numbers[randomIndex]);
         }
       }
 
+      const targetsBox = document.getElementById("hack-targets");
       const grid = document.getElementById("hack-grid");
       const status = document.getElementById("hack-status");
 
-      if (!grid || !status) return;
+      if (!targetsBox || !grid || !status) return;
+
+      targetsBox.innerHTML = "";
+      hackTargetValues.forEach((value, idx) => {
+        const target = document.createElement("div");
+        target.className = "hack-target";
+        target.textContent = value;
+        target.id = `hack-target-${idx}`;
+        targetsBox.appendChild(target);
+      });
 
       grid.innerHTML = "";
 
@@ -1469,16 +1508,13 @@ Supprimer les traces après la remise.
         cell.className = "hack-number";
         cell.textContent = num;
         cell.dataset.index = index;
+        cell.dataset.value = num;
 
-        if (hackTargets.includes(index)) {
-          cell.classList.add("target");
-        }
-
-        cell.addEventListener("click", () => handleHackNumberClick(cell, index));
+        cell.addEventListener("click", () => handleHackNumberClick(cell, num));
         grid.appendChild(cell);
       });
 
-      status.textContent = "Sélectionnez les 4 anomalies rouges avant la fin du temps.";
+      status.textContent = "Retrouvez dans la grille les 4 codes rouges affichés ci-dessus.";
       status.style.color = "#cbd5e1";
       updateHackTimerDisplay();
 
@@ -1497,16 +1533,24 @@ Supprimer les traces après la remise.
       }, 100);
     }
 
-    function handleHackNumberClick(cell, index) {
+    function handleHackNumberClick(cell, value) {
       if (!hackGameRunning) return;
-      if (hackFound.includes(index)) return;
+      if (cell.classList.contains("good") || cell.classList.contains("bad")) return;
 
-      if (hackTargets.includes(index)) {
-        hackFound.push(index);
-        cell.classList.remove("target");
+      const targetIndex = hackTargetValues.findIndex((targetValue, idx) => {
+        return targetValue === value && !hackFoundValues.includes(idx);
+      });
+
+      if (targetIndex !== -1) {
+        hackFoundValues.push(targetIndex);
         cell.classList.add("good");
 
-        if (hackFound.length === hackTargets.length) {
+        const targetElement = document.getElementById(`hack-target-${targetIndex}`);
+        if (targetElement) {
+          targetElement.classList.add("found");
+        }
+
+        if (hackFoundValues.length === hackTargetValues.length) {
           stopHackGame();
           succeedHackGame();
         }
